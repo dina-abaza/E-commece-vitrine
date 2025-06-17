@@ -1,8 +1,8 @@
 
 import React from 'react';
-import ImageSlider from '../../components/imagSlider';
-import CategoriesGrid from '../../components/gridLinks';
-import OfferCard from '../../components/offerCard';
+import ImageSlider from "../../components/customer/imagSlider";
+import CategoriesGrid from "../../components/customer/gridLinks";
+import OfferCard from "../../components/customer/offerCard";
 
 function Home() {
   return (

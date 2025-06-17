@@ -1,8 +1,8 @@
 import React from "react";
-import HeadNav from "../../components/headNav";
-import SearchNav from "../../components/searchNav";
-import CategoryNav from "../../components/categoryNav";
-import ServiceIntoNav from "../../components/serviceIntoNav";
+import HeadNav from "../../components/customer/headNav";
+import SearchNav from "../../components/customer/searchNav";
+import CategoryNav from "../../components/customer/categoryNav";
+import ServiceIntoNav from "../../components/customer/serviceIntoNav";
 
 export default function NavBar(){
     return(

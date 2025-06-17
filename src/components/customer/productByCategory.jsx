@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import useCartStore from "../store/cartStore";
+import useCartStore from "../../store/cartStore";
 
 export default function ProductByCategory({ category, title }) {
   const [products, setProducts] = useState([]);
