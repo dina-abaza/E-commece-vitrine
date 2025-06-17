@@ -15,6 +15,7 @@ import Ligting from './pages/customer/ligting';
 import AdminLayout from './layout/adminLayout';
 import AdminLogin from './pages/admin/adminLogin';
 import CustomerLayout from './layout/customerLayout';
+import ProductByCategory from './components/customer/productByCategory';
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
         <Route path="allProducts" element={<AllProducts />} />
         <Route path="cart" element={<Cart />} />
         <Route path="furniture" element={<Furniture />} />
+         <Route path="/category/:slug/:id" element={<ProductByCategory />} />
         <Route path="decor" element={<Decor />} />
         <Route path="ligting" element={<Ligting />} />
         

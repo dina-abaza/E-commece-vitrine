@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import useCartStore from "../../store/cartStore";
+import { useParams } from "react-router-dom";
 
 export default function ProductByCategory({ category, title }) {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const addToCart = useCartStore(state => state.addToCart);
+  const { slug , id } = useParams();
+  console.log("Category slug:", slug);
+  console.log("Category slug:", id);
 
   useEffect(() => {
+
     const storedData = localStorage.getItem(`products-${category}`);
     if (storedData) {
       setProducts(JSON.parse(storedData));
