@@ -15,7 +15,8 @@ import Ligting from './pages/customer/ligting';
 import AdminLayout from './layout/adminLayout';
 import AdminLogin from './pages/admin/adminLogin';
 import CustomerLayout from './layout/customerLayout';
-
+import ProductDetails from './pages/customer/productDetails';
+import Payment from './pages/customer/payment';
 function App() {
   return (
     <div className="flex flex-col min-h-screen">
@@ -36,6 +37,8 @@ function App() {
         <Route path="furniture" element={<Furniture />} />
         <Route path="decor" element={<Decor />} />
         <Route path="ligting" element={<Ligting />} />
+        <Route path="/product/:id" element={<ProductDetails />} />
+         <Route path="/payment" element={<Payment />} />
         
        </Route>
 

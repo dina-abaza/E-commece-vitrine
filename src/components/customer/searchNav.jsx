@@ -9,7 +9,7 @@ export default function SearchNav() {
   return (
     <div className="w-ful  flex items-center justify-around py-3 px-4 bg-white  h-30">
       
-    <h1 className="text-xl text-yellow-500 flex items-center  gap-2">
+    <h1 className="text-xl text-yellow-500 flex items-center gap-2">
       <Link to="/admin/login" title="Admin Login">
       <MdDashboard size={30} className="cursor-pointer hover:text-yellow-700" />
       </Link>

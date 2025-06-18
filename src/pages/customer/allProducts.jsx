@@ -17,8 +17,9 @@ export default function AllProducts() {
 
     async function fetchData() {
       try {
-        const res = await axios.get("https://api.example.com/products"); 
+        const res = await axios.get("https://e-commece-vitrine-api.vercel.app/api/products"); 
         setProducts(res.data);
+        console.log('Products:', products);
         localStorage.setItem("products", JSON.stringify(res.data));
       } catch (error) {
         setError(error.message);
@@ -44,7 +45,7 @@ export default function AllProducts() {
         {products.map((product, index) => (
           <div
             key={index}
-            className=" w-full relative bg-white shadow-md rounded-lg"
+            className="w-full relative bg-white shadow-md rounded-lg"
           >
             
             <span className="absolute top-2 right-2 bg-red-600 text-white text-xs px-2 py-1 rounded">
@@ -68,6 +69,16 @@ export default function AllProducts() {
               </p>
               <button onClick={()=>addToCart(product)}>add to cart</button>
             </div>
+
+            <div className="absolute inset-0 bg-white bg-opacity-70 backdrop-blur-sm flex items-center justify-center  opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <Link
+              to={`/product/${product.id}`}
+              className="bg-teal-500 text-white px-4 py-2 rounded hover:bg-teal-600 inline-block text-center">
+                عرض التفاصيل
+                 </Link>
+            </div>
+
+
           </div>
         ))}
       </div>
