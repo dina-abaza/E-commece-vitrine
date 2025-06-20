@@ -111,7 +111,7 @@ const ImageSlider = () => {
 
   return (
     <div
-      className="relative w-full max-w-6xl mx-auto py-10 overflow-hidden"
+      className="relative w-full max-w-6xl mx-auto py-10 overflow-hidden shadow-xl"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >

@@ -15,8 +15,9 @@ export default function Cart() {
         <p>no products</p>
       ) : (
         cartItems.map((item) => (
+          
           <div
-            key={item.id}
+            key={item._id}
             className="flex items-center mb-4 p-4 border rounded shadow"
           >
             <img
@@ -31,21 +32,21 @@ export default function Cart() {
             </div>
             <div className="flex items-center space-x-2">
               <button
-                onClick={() => decreaseItem(item.id)}
+                onClick={() => decreaseItem(item._id)}
                 className="bg-gray-200 px-2 rounded"
               >
                 -
               </button>
               <span>{item.quantity}</span>
               <button
-                onClick={() => increaseItem(item.id)}
+                onClick={() => increaseItem(item._id)}
                 className="bg-gray-200 px-2 rounded"
               >
                 +
               </button>
             </div>
             <button
-              onClick={() => deletItem(item.id)}
+              onClick={() => deletItem(item._id)}
               className="ml-4 bg-red-600 text-white px-3 py-1 rounded"
             >
               delete

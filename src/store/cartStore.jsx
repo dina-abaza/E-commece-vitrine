@@ -6,12 +6,12 @@ const useCartStore = create(
     (set, get) => ({
       cartItems: [],
 
-      addItem: (product) => {
-        const existItem = get().cartItems.find((item) => item.id === product.id);
+      addToCart: (product) => {
+        const existItem = get().cartItems.find((item) => item._id === product._id);
         if (existItem) {
           set({
             cartItems: get().cartItems.map((item) =>
-              item.id === product.id
+              item._id === product._id
                 ? { ...item, quantity: item.quantity + 1 }
                 : item
             ),
@@ -25,13 +25,13 @@ const useCartStore = create(
 
       deletItem: (productId) =>
         set((state) => ({
-          cartItems: state.cartItems.filter((item) => item.id !== productId),
+          cartItems: state.cartItems.filter((item) => item._id !== productId),
         })),
 
       increaseItem: (productId) =>
         set((state) => ({
           cartItems: state.cartItems.map((item) =>
-            item.id === productId
+            item._id === productId
               ? { ...item, quantity: item.quantity + 1 }
               : item
           ),
@@ -40,7 +40,7 @@ const useCartStore = create(
       decreaseItem: (productId) =>
         set((state) => ({
           cartItems: state.cartItems.map((item) =>
-            item.id === productId
+            item._id === productId
               ? { ...item, quantity: item.quantity > 1 ? item.quantity - 1 : 1 }
               : item
           ),

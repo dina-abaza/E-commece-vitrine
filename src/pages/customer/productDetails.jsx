@@ -14,8 +14,11 @@ export default function ProductDetails() {
     async function fetchProduct() {
       try {
         const res = await axios.get("https://e-commece-vitrine-api.vercel.app/api/products");
+              console.log("ID from URL param:", id, typeof id);  // نوع وقيمة id من الرابط
+
         console.log(res);
-        const foundProduct = res.data.find(p => p.id === id);
+        const foundProduct = res.data.find(p => p._id === (id));
+
         if (!foundProduct) {
           setError("المنتج غير موجود");
         } else {
@@ -39,7 +42,7 @@ export default function ProductDetails() {
   if (!product) return null;
 
   return (
-    <div className="p-6 max-w-md mx-auto">
+    <div className="animate-slideInFromLeft p-6 max-w-md mx-auto">
       <h2 className="text-2xl font-bold mb-2">{product.name}</h2>
       <img
         src={product.image || "https://via.placeholder.com/400"}
@@ -82,7 +85,7 @@ export default function ProductDetails() {
       </div>
 
       <Link
-         to={`/payment?id=${product.id}&color=${color}&quantity=${quantity}`}
+         to={`/payment?id=${product._id}&color=${color}&quantity=${quantity}`}
         className="text-cyan-600 hover:underline font-semibold"
       >
         اشتري الان

@@ -9,14 +9,12 @@ import Exhibitions from './pages/customer/exhibitions';
 import Login from './pages/customer/login';
 import AllProducts from './pages/customer/allProducts';
 import Cart from './pages/customer/cart';
-import Decor from './pages/customer/decor';
-import Furniture from './pages/customer/furniture';
-import Ligting from './pages/customer/ligting';
 import AdminLayout from './layout/adminLayout';
 import AdminLogin from './pages/admin/adminLogin';
 import CustomerLayout from './layout/customerLayout';
 import ProductDetails from './pages/customer/productDetails';
 import Payment from './pages/customer/payment';
+import ProductByCategory from './components/customer/productByCategory';
 function App() {
   return (
     <div className="flex flex-col min-h-screen">
@@ -34,11 +32,9 @@ function App() {
         <Route path="login" element={<Login />} />
         <Route path="allProducts" element={<AllProducts />} />
         <Route path="cart" element={<Cart />} />
-        <Route path="furniture" element={<Furniture />} />
-        <Route path="decor" element={<Decor />} />
-        <Route path="ligting" element={<Ligting />} />
         <Route path="/product/:id" element={<ProductDetails />} />
          <Route path="/payment" element={<Payment />} />
+         <Route path="/:slug/:categoryId" element={<ProductByCategory />} />
         
        </Route>
 

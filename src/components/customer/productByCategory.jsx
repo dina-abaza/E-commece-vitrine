@@ -1,24 +1,27 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import useCartStore from "../../store/cartStore";
+import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-export default function ProductByCategory({ category, title }) {
+export default function ProductByCategory() {
+  const {categoryId}=useParams()
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const addToCart = useCartStore(state => state.addToCart);
 
   useEffect(() => {
-    const storedData = localStorage.getItem(`products-${category}`);
+    const storedData = localStorage.getItem(`products-${categoryId}`);
     if (storedData) {
       setProducts(JSON.parse(storedData));
     }
 
     async function fetchData() {
       try {
-        const url = `https://api.example.com/products?category=${category}`;
+        const url = `https://e-commece-vitrine-api.vercel.app/api/product/${categoryId}`;
         const res = await axios.get(url);
-        localStorage.setItem(`products-${category}`, JSON.stringify(res.data));
+        localStorage.setItem(`products-${categoryId}`, JSON.stringify(res.data));
         setProducts(res.data);
       } catch (error) {
         setError(error.message);
@@ -28,40 +31,56 @@ export default function ProductByCategory({ category, title }) {
     }
 
     fetchData();
-  }, [category]);
+  }, [categoryId]);
 
   return (
-    <div className="p-6 m-10">
-      <h2 className="text-2xl font-bold mb-4">{title}</h2>
-
+    <div className="animate-slideInFromLeft p-6 m-10">
       {loading && <p>جاري التحميل...</p>}
       {error && <p className="text-red-600">{error}</p>}
       {!loading && products.length === 0 && (
         <p className="text-gray-500">لا توجد منتجات</p>
       )}
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {products.map((product, index) => (
-          <div key={index} className="bg-white shadow rounded p-4">
+      <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {products.map((product) => (
 
-              <span className="text-xs bg-red-600 text-white px-2 py-1 rounded">
-                {product.offer}
-              </span>
-        
-            <img
-              src={product.image}
-              alt={product.name}
-              className="w-full h-48 object-cover mb-2"
-            />
-            <h3 className="font-bold">{product.name}</h3>
-            <p>{product.price}</p>
-            <button
-              onClick={() => addToCart(product)}
-              className="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-            >
-              أضف إلى السلة
-            </button>
-          </div>
+             <div className="relative group bg-white rounded-lg shadow-md overflow-hidden cursor-pointer">
+
+  <img
+    src={product.image || "https://via.placeholder.com/300"}
+    alt={product.name}
+    className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
+  />
+
+  
+  <div className="absolute inset-0 bg-black opacity-20 group-hover:opacity-40 transition-opacity duration-300 pointer-events-none z-20"></div>
+
+
+  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-30 pointer-events-auto">
+    <Link
+      to={`/product/${product._id}`}
+      className="text-yellow-700 px-5 py-2 rounded shadow-lg font-bold hover:text-yellow-500"
+    >
+      عرض التفاصيل
+    </Link>
+  </div>
+
+
+  <div className="p-4 bg-white relative z-40">
+    <h3 className="text-lg font-semibold mb-1">{product.name}</h3>
+    <p className="text-gray-700 font-bold mb-3">{product.price} جنيه</p>
+    <button
+      onClick={() => {
+        console.log("Adding product to cart:", product);
+        addToCart(product);
+      }}
+      className="text-yellow-700 font-bold hover:text-yellow-500 transition duration-300"
+    >
+      أضف إلى السلة
+    </button>
+  </div>
+
+</div>
         ))}
       </div>
     </div>
