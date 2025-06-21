@@ -21,7 +21,7 @@ export default function ChatWidget() {
 
     try {
       await axios.post(
-        "https://your-backend.com/api/support-message",
+        "",
         { message },
         {
           headers: {
@@ -37,8 +37,8 @@ export default function ChatWidget() {
     }
   };
 
-  function GoToLogin() {
-    navigate("/login");
+  function GoToRegistser() {
+    navigate("/register");
     setOpen(false);
   }
 
@@ -94,7 +94,7 @@ export default function ChatWidget() {
           {!token && (
             <p
               className="text-blue-500 mt-2 text-sm underline cursor-pointer"
-              onClick={GoToLogin}
+              onClick={GoToRegistser}
             >
               تسجيل الدخول الآن
             </p>

@@ -51,6 +51,8 @@ export default function ProductDetails() {
       />
       <p className="my-4">{product.description}</p>
       <p className="font-semibold mb-4">السعر: {product.price}</p>
+      <span className="text-sm text-white bg-red-500 p-1 rounded">{product.offer.discountPercent}%</span>
+      <p className="font-bold mt-2 mb-4">{product.offer.discountedPrice}جنيه</p>
 
       <label htmlFor="colorSelect" className="block mb-2 font-semibold">
         اختر اللون:

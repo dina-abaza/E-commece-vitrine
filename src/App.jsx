@@ -15,6 +15,7 @@ import CustomerLayout from './layout/customerLayout';
 import ProductDetails from './pages/customer/productDetails';
 import Payment from './pages/customer/payment';
 import ProductByCategory from './components/customer/productByCategory';
+import Register from './pages/customer/register';
 function App() {
   return (
     <div className="flex flex-col min-h-screen">
@@ -29,6 +30,7 @@ function App() {
         <Route path="privacy-policy" element={<PrivacyPolicy />} />
         <Route path="return-policy" element={<ReturnPolicy />} />
         <Route path="exhibitions" element={<Exhibitions />} />
+        <Route path='register' element={<Register/>}/>
         <Route path="login" element={<Login />} />
         <Route path="allProducts" element={<AllProducts />} />
         <Route path="cart" element={<Cart />} />

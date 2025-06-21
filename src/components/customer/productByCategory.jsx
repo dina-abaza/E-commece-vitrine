@@ -15,6 +15,7 @@ export default function ProductByCategory() {
     const storedData = localStorage.getItem(`products-${categoryId}`);
     if (storedData) {
       setProducts(JSON.parse(storedData));
+      setLoading(false); 
     }
 
     async function fetchData() {
@@ -44,16 +45,15 @@ export default function ProductByCategory() {
       <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {products.map((product) => (
 
-             <div className="relative group bg-white rounded-lg shadow-md overflow-hidden cursor-pointer">
-
-  <img
-    src={product.image || "https://via.placeholder.com/300"}
-    alt={product.name}
-    className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
-  />
-
+          <div className="relative group bg-white rounded-lg shadow-md overflow-hidden cursor-pointer">
+              <img
+              src={product.image || "https://via.placeholder.com/300"}
+              alt={product.name}
+              className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
+          />
   
-  <div className="absolute inset-0 bg-black opacity-20 group-hover:opacity-40 transition-opacity duration-300 pointer-events-none z-20"></div>
+  <div className="absolute inset-0 bg-black opacity-20 group-hover:opacity-40 transition-opacity duration-300 pointer-events-none z-20">
+</div>
 
 
   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-30 pointer-events-auto">
