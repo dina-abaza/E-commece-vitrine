@@ -24,6 +24,7 @@ import AdminLayout from './layout/adminLayout';
 import AdminRoute from './routes/adminRoute';
 import AddProduct from './pages/admin/addProduct';
 import AdminProducts from './pages/admin/adminProducts';
+import OffersPage from './pages/customer/offersPage';
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
           <Route path="product/:id" element={<ProductDetails />} />
           <Route path="payment" element={<Payment />} />
           <Route path=":slug/:id" element={<ProductByCategory />} />
+          <Route path="offers" element={<OffersPage/>} />
         </Route>
 
   
