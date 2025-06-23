@@ -1,92 +1,109 @@
-
-import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import React, { useState } from "react";
 import axios from "axios";
+import useCartStore from "../../store/customerStore/cartStore";
+import useAuthStore from "../../store/customerStore/authStore";
+import { useNavigate } from "react-router-dom";
 
 export default function Payment() {
-  const location = useLocation();
-  const query = new URLSearchParams(location.search);
+  const cartItems = useCartStore((state) => state.cartItems);
+  const clearCart = useCartStore((state) => state.clearCart);
+  const token = useAuthStore((state) => state.token);
+  const navigate = useNavigate();
 
-  const productId = query.get("id");
-  const color = query.get("color");
-  const quantity = Number(query.get("quantity")) || 1;
-
-  const [product, setProduct] = useState(null);
   const [paymentMethod, setPaymentMethod] = useState("credit_card");
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-
   const [customerName, setCustomerName] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
+  const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState("");
 
-  useEffect(() => {
-    async function fetchProduct() {
-      try {
-        const res = await axios.get("https://e-commece-vitrine-api.vercel.app/api/products");
-        const foundProduct = res.data.find(p => p._id === productId);
-        if (!foundProduct) {
-          setError("المنتج غير موجود");
-        } else {
-          setProduct(foundProduct);
-        }
-      } catch (err) {
-        setError(`حدث خطأ أثناء جلب بيانات المنتج: ${err.message}`);
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchProduct();
-  }, [productId]);
-
-  if (loading) return <p>جاري التحميل...</p>;
-  if (error) return <p className="text-red-600">{error}</p>;
-  if (!product) return null;
-
-  const totalPrice = product.price * quantity;
+  const totalPrice = cartItems.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0
+  );
 
   const handleSubmit = async () => {
+    if (!token) {
+      alert("❗ يرجى تسجيل الدخول أولاً قبل تنفيذ عملية الشراء.");
+      return;
+    }
+
     if (!customerName || !phone || !address) {
       alert("من فضلك املأ جميع بيانات العميل.");
       return;
     }
-    setError(null)
+
     try {
-       await axios.post("", {
-        productId,
-        quantity,
-        color,
-        paymentMethod,
-        totalPrice,
-        customerName,
-        phone,
-        address,
-      });
+      setError(null);
+
+      await axios.post(
+        "",
+        {
+          items: cartItems,
+          paymentMethod,
+          customerName,
+          phone,
+          address,
+          totalPrice,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       setSuccessMessage("✅ تم إرسال الطلب بنجاح! سيتم التواصل معك قريبًا.");
+      clearCart();
     } catch (err) {
-      console.error(err);
-      alert("❌ حدث خطأ أثناء تأكيد الطلب. حاول مرة أخرى.");
+        console.error("خطأ في الدفع:", err);
+
+      setError("❌ حدث خطأ أثناء تأكيد الطلب. حاول مرة أخرى.");
     }
   };
 
-  return (
-    <div className="animate-slideInFromLeft max-w-4xl mx-auto shadow-lg rounded p-6 mt-10 bg-white">
-      <div className="flex flex-col md:flex-row gap-8 items-start">
-        <div className="md:w-1/2">
-          <h3 className="text-lg font-semibold mb-2">تفاصيل المنتج</h3>
-          <img src={product.image} alt={product.name} className="w-full rounded mb-4" />
-          <p>اسم المنتج: {product.name}</p>
-          <p>اللون: {color || "لم يتم الاختيار"}</p>
-          <p>الكمية: {quantity}</p>
-          <p>سعر الوحدة: {product.price} جنيه</p>
-          <p className="font-bold text-lg mt-2">المجموع: {totalPrice} جنيه</p>
-        </div>
-        
-        <div className="md:w-1/2 mt-6 md:mt-14">
+  if (cartItems.length === 0) {
+    return (
+      <div className="p-6 text-center">
+        <p>لا يوجد منتجات للدفع.</p>
+        <button
+          onClick={() => navigate("/cart")}
+          className="text-blue-500 underline mt-4"
+        >
+          العودة للسلة
+        </button>
+      </div>
+    );
+  }
 
+  return (
+    <div className="animate-slideInFromLeft max-w-5xl mx-auto shadow-lg rounded p-6 mt-10 bg-white">
+      <div className="flex flex-col md:flex-row gap-6 items-start">
+
+        <div className="flex-1 max-h-[500px] overflow-y-auto border p-4 rounded bg-gray-50">
+          <h3 className="text-lg font-semibold mb-4">مراجعة المنتجات</h3>
+          {cartItems.map((item) => (
+            <div key={item._id} className="mb-4 border-b pb-2">
+              <div className="flex gap-4 items-center">
+                <img
+                  src={item.image}
+                  alt={item.name}
+                  className="w-20 h-20 object-cover rounded"
+                />
+                <div>
+                  <p className="font-semibold">{item.name}</p>
+                  <p>الكمية: {item.quantity}</p>
+                  <p>السعر: {item.price} جنيه</p>
+                  <p>الإجمالي: {item.price * item.quantity} جنيه</p>
+                </div>
+              </div>
+            </div>
+          ))}
+          <p className="font-bold text-lg mt-2">المجموع الكلي: {totalPrice} جنيه</p>
+        </div>
+
+
+        <div className="flex-1 mt-6 md:mt-0 border p-4 rounded bg-gray-50">
           <h3 className="text-lg font-semibold mb-2">طريقة الدفع</h3>
           <label className="block mb-2">
             <input
@@ -138,8 +155,8 @@ export default function Payment() {
           >
             تأكيد الدفع
           </button>
-          {error&&<div  className="text-red-600">{error}</div>}
 
+          {error && <div className="text-red-600 mt-4">{error}</div>}
           {successMessage && (
             <div className="mt-4 bg-green-100 text-green-700 p-3 rounded">
               {successMessage}

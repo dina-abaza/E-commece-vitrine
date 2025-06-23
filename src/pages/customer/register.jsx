@@ -1,10 +1,15 @@
+
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
+import useAuthStore from "../../store/customerStore/authStore";
 
 export default function Register() {
   const [form, setForm] = useState({ name: "", email: "", password: "" });
   const navigate = useNavigate();
+
+  const setUser = useAuthStore((state) => state.setUser);
+  const setToken = useAuthStore((state) => state.setToken);
 
   function handleChange(e) {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -14,10 +19,16 @@ export default function Register() {
     e.preventDefault();
 
     try {
-     const register= await axios.post("https://e-commece-vitrine-api.vercel.app/api/register", form);
-     console.log(register.data)
-      if(register.data.message==="تم إنشاء الحساب بنجاح"){
-      navigate("/login")};
+      const register = await axios.post("https://e-commece-vitrine-api.vercel.app/api/register", form);
+
+      if (register.data.message === "تم إنشاء الحساب بنجاح") {
+        // حفظ التوكن وبيانات المستخدم في Zustand store
+        setToken(register.data.accessToken);
+        setUser(register.data.user);
+
+        // بعد التسجيل ممكن توجه المستخدم مثلاً للصفحة الرئيسية أو صفحة تسجيل الدخول
+        navigate("/login");  // أو ممكن تغيرها لـ "/" لو عايز تدخل تلقائي بعد التسجيل
+      }
     } catch (error) {
       alert("حدث خطأ أثناء إنشاء الحساب");
       console.error(error);
@@ -25,7 +36,7 @@ export default function Register() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-1/3 mx-auto m-10">
+    <form onSubmit={handleSubmit} className="animate-slideInFromLeft flex flex-col gap-4 w-1/3 mx-auto m-10">
       <h2 className="text-2xl font-bold text-center">إنشاء حساب</h2>
 
       <input

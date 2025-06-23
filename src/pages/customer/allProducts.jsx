@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import useCartStore from "../../store/cartStore";
+import useCartStore from "../../store/customerStore/cartStore";
 
 export default function AllProducts() {
   const [products, setProducts] = useState([]);

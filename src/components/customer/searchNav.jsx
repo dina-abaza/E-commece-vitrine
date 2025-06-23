@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FiSearch, FiShoppingCart, FiUser } from 'react-icons/fi';
 import { Link, useNavigate } from "react-router-dom"; 
 import { MdDashboard } from "react-icons/md";
-import useAuthStore from "../../store/authStore";
+import useAuthStore from "../../store/customerStore/authStore";
 
 export default function SearchNav() {
   const [lang, setLang] = useState('العربيه');

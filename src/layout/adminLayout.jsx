@@ -8,7 +8,7 @@ const AdminLayout = () => {
     <div>
       <Sidebar />
       <Navbar />
-      <main className="ml-56 mt-16 p-6">
+      <main className="animate-slideInFromLeft ml-56 mt-16 p-6">
         <Outlet />
       </main>
     </div>

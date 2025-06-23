@@ -14,8 +14,6 @@ export default function ProductDetails() {
     async function fetchProduct() {
       try {
         const res = await axios.get("https://e-commece-vitrine-api.vercel.app/api/products");
-              console.log("ID from URL param:", id, typeof id);  // نوع وقيمة id من الرابط
-
         console.log(res);
         const foundProduct = res.data.find(p => p._id === (id));
 
@@ -61,7 +59,9 @@ export default function ProductDetails() {
         id="colorSelect"
         value={color}
         onChange={(e) => setColor(e.target.value)}
-        className="w-full border rounded px-3 py-2 mb-4"
+        className=" w-full border rounded px-3 py-2 mb-4"
+
+
       >
         <option value="">-- اختر اللون --</option>
         <option value="black">اسود</option>

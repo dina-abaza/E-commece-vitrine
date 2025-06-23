@@ -117,7 +117,7 @@ const ImageSlider = () => {
     >
       <div
         className={`relative w-full h-[500px] transition-all duration-900 transform ${
-          animate ? "translate-x-0 opacity-100" : "translate-x-[900%] opacity-0"
+          animate ? "translate-x-0 opacity-100" : "translate-x-full opacity-0"
         }`}
       >
         <img

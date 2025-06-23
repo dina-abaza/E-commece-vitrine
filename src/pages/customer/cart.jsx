@@ -1,5 +1,6 @@
 import React from "react";
-import useCartStore from "../../store/cartStore";
+import useCartStore from "../../store/customerStore/cartStore";
+import { Link } from "react-router-dom";
 
 export default function Cart() {
   const cartItems = useCartStore((state) => state.cartItems);
@@ -66,6 +67,12 @@ export default function Cart() {
           <div className="text-right mt-6 font-bold text-xl">
             السعر الكلي: {totalPrice} جنيه
           </div>
+           <Link
+         to="/payment"
+        className="text-cyan-600 hover: font-semibold"
+      >
+        اشتري الان
+      </Link>
         </>
       )}
     </div>

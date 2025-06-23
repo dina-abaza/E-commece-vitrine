@@ -1,48 +1,48 @@
+
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
-import useAuthStore from "../../store/authStore";
+import useAuthStore from "../../store/customerStore/authStore";
 
 export default function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
-  const setUser = useAuthStore((state) => state.setUser);
-  const setToken = useAuthStore((state) => state.setToken);
   const navigate = useNavigate();
 
-function handleChange(e) {
-  setForm((prev) => {
-    const updated = { ...prev, [e.target.name]: e.target.value };
-    console.log("Updated form:", updated); 
-    return updated;
-  });
-}
+  // جلب دوال التحديث من Zustand
+  const setUser = useAuthStore((state) => state.setUser);
+  const setToken = useAuthStore((state) => state.setToken);
+
+  function handleChange(e) {
+    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  }
 
   async function handleSubmit(e) {
     e.preventDefault();
 
     try {
-      const loginRes = await axios.post("https://e-commece-vitrine-api.vercel.app/api/login", form);
+      const response = await axios.post("https://e-commece-vitrine-api.vercel.app/api/login", form);
 
-      const token = loginRes.data.token;
-      setToken(token);
+      if (response.data.accessToken) {
+        // خزّن التوكن وبيانات المستخدم في الستور
+        setToken(response.data.accessToken);
+        setUser(response.data.user);
 
-      const userRes = await axios.get("https://e-commece-vitrine-api.vercel.app/api/verify-login", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      setUser(userRes.data);
-
-      navigate("/home");
+        // بعد تسجيل الدخول بنجاح، وجه المستخدم للداشبورد
+        navigate("/");
+      } else {
+        alert("بيانات الدخول غير صحيحة");
+      }
     } catch (error) {
-      alert("فشل تسجيل الدخول");
+      alert("حدث خطأ أثناء تسجيل الدخول");
       console.error(error);
     }
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-1/3 mx-auto m-10">
+    <form
+      onSubmit={handleSubmit}
+      className="animate-slideInFromLeft flex flex-col gap-4 w-1/3 mx-auto m-10"
+    >
       <h2 className="text-2xl font-bold text-center">تسجيل الدخول</h2>
 
       <input
@@ -69,7 +69,12 @@ function handleChange(e) {
         تسجيل الدخول
       </button>
 
-  
+      <p className="text-center text-sm">
+        ليس لديك حساب؟{" "}
+        <Link to="/register" className="text-blue-600 underline">
+          إنشاء حساب
+        </Link>
+      </p>
     </form>
   );
 }

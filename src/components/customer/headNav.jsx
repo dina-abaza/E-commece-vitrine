@@ -59,12 +59,12 @@ export default function HeadNav() {
       </button>
 
       
-      <div className="relative flex-grow flex items-center justify-center"> 
+      <div className=" flex-grow flex items-center justify-center"> 
         <h2
         
           key={currentIndex}
           className={`
-            text-sm md:text-lg lg:text-xl  text-center absolute w-full text-black
+            text-sm md:text-lg lg:text-xl  text-center  w-full text-black
             transition-transform duration-500 ease-out opacity-100
             ${showTitle ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'}
           `}
