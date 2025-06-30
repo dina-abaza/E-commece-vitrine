@@ -56,41 +56,41 @@ function App() {
           <Route
             path="dashboard"
             element={
-              <AdminRoute>
+              
                 <HomeDashboard />
-              </AdminRoute>
+            
             }
           />
           <Route
             path="users"
             element={
-              <AdminRoute>
+              
                 <UsersPage />
-              </AdminRoute>
+            
             }
           />
           <Route
             path="orders"
             element={
-              <AdminRoute>
+              
                 <OrdersPage />
-              </AdminRoute>
+              
             }
           />
           <Route
             path="settings"
             element={
-              <AdminRoute>
+            
                 <AdminSettings />
-              </AdminRoute>
+            
             }
           />
 
           <Route path="add"
           element={
-            <AdminRoute>
+        
               <AddProduct/>
-            </AdminRoute>
+            
           }
           />
 

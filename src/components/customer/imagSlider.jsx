@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { FaTruck } from "react-icons/fa";
 import { Link } from "react-router-dom";
+
 const slides = [
   {
     image: "/fournitre1.jpg",
@@ -126,36 +127,51 @@ const ImageSlider = () => {
           className="object-center w-full h-full brightness-100"
         />
 
-        <h2 className="absolute top-20 right-20 text-white font-bold text-4xl">
-          {slides[current].title}
-        </h2>
+        {/* المحتوى الرئيسي: العنوان + النص + التوصيل */}
+        <div
+          className="
+            absolute top-20 right-20
+            text-white font-bold
+            flex flex-col items-end gap-4
+            sm:static sm:items-center sm:text-center sm:gap-2 sm:p-4
+          "
+        >
+          <h2 className="text-4xl sm:text-2xl">{slides[current].title}</h2>
 
-        <p className="absolute bottom-60 right-20 text-3xl font-bold leading-tight">
-          {slides[current].text}
-        </p>
+          <p className="text-3xl sm:text-lg">{slides[current].text}</p>
 
-        <div className="absolute bottom-20 right-20 flex justify-center items-center gap-2">
-          <p className="text-3xl font-bold text-white">
-            {slides[current].service}
-          </p>
-          <FaTruck className="text-yellow-400 w-10 h-10" />
+          <div className="flex items-center gap-2 text-3xl sm:text-lg justify-end sm:justify-center">
+            <p>{slides[current].service}</p>
+            <FaTruck className="text-yellow-400 w-8 h-8" />
+          </div>
+
+          {/* زر تسوق الان تحت "توصيل مجاني" */}
+          <Link
+            to="/allProducts"
+            className="
+              bg-amber-300 text-blue-950 px-6 py-2 rounded shadow
+              hover:bg-amber-400 transition
+              sm:px-4 sm:py-1 sm:text-sm
+            "
+          >
+            {slides[current].button}
+          </Link>
         </div>
-
-        <Link to="/allProducts" className="absolute bottom-20 left-[500px] bg-amber-300 text-blue-950 px-6 py-2 rounded shadow">
-          {slides[current].button}
-        </Link>
       </div>
 
+      {/* أزرار التنقل */}
       <button
         onClick={prevSlide}
-        className="absolute top-1/2 left-4 text-3xl text-white"
+        className="absolute top-1/2 left-4 -translate-y-1/2 text-3xl text-white hover:text-yellow-400 transition"
+        aria-label="السابق"
       >
         ❮
       </button>
 
       <button
         onClick={nextSlide}
-        className="absolute top-1/2 right-4 text-3xl text-white"
+        className="absolute top-1/2 right-4 -translate-y-1/2 text-3xl text-white hover:text-yellow-400 transition"
+        aria-label="التالي"
       >
         ❯
       </button>

@@ -31,9 +31,13 @@ export default function ChatWidget() {
       );
       setMessage("");
       setSent(true);
-      setTimeout(() => setSent(false), 3000);
+      setTimeout(() =>{ setSent(false)
+      setOpen(false)}
+      , 3000);
     } catch (err) {
-      setError("حدث خطأ أثناء الإرسال",err);
+     setError("حدث خطأ أثناء الإرسال");
+     console.error(err);
+ 
     }
   };
 

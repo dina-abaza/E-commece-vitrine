@@ -30,7 +30,7 @@ const AdminLogin = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto mt-20 p-6 rounded shadow-md bg-white">
+    <div className="animate-slideInFromLeft w-full max-w-3xl mx-auto mt-20 p-6 rounded shadow-md bg-white">
       <h2 className="text-xl font-bold mb-6 text-center text-blue-900">يرجي تسجيل الدخول </h2>
       <form onSubmit={handleLogin} className="flex flex-col gap-4 max-w-sm">
         <input

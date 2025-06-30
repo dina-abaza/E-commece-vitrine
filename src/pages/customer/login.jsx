@@ -23,11 +23,8 @@ export default function Login() {
       const response = await axios.post("https://e-commece-vitrine-api.vercel.app/api/login", form);
 
       if (response.data.accessToken) {
-        // خزّن التوكن وبيانات المستخدم في الستور
         setToken(response.data.accessToken);
         setUser(response.data.user);
-
-        // بعد تسجيل الدخول بنجاح، وجه المستخدم للداشبورد
         navigate("/");
       } else {
         alert("بيانات الدخول غير صحيحة");
@@ -41,7 +38,8 @@ export default function Login() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="animate-slideInFromLeft flex flex-col gap-4 w-1/3 mx-auto m-10"
+      className="animate-slideInFromLeft flex flex-col gap-4 mx-auto m-10
+                 w-full max-w-md p-2 sm:w-1/2"
     >
       <h2 className="text-2xl font-bold text-center">تسجيل الدخول</h2>
 
@@ -52,7 +50,7 @@ export default function Login() {
         value={form.email}
         onChange={handleChange}
         required
-        className="p-2 border rounded"
+        className="p-2 border rounded w-full"
       />
 
       <input
@@ -62,10 +60,13 @@ export default function Login() {
         value={form.password}
         onChange={handleChange}
         required
-        className="p-2 border rounded"
+        className="p-2 border rounded w-full"
       />
 
-      <button type="submit" className="bg-yellow-600 text-black p-2 font-bold rounded">
+      <button
+        type="submit"
+        className="bg-yellow-600 text-black p-2 font-bold rounded w-full"
+      >
         تسجيل الدخول
       </button>
 

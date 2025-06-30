@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import AdminUseAuthStore from "../../store/adminStore/adminAuthStore";
@@ -15,10 +16,9 @@ export default function AdminProducts() {
       try {
         setLoading(true);
         const res = await axios.get(
-          "",
+          "https://e-commece-vitrine-api.vercel.app/api/products",
           { headers: { Authorization: `Bearer ${token}` } }
         );
-
         setProducts(res.data);
         setError(null);
       } catch (err) {
@@ -81,7 +81,7 @@ export default function AdminProducts() {
   if (error) return <p className="text-red-600 text-center mt-10">{error}</p>;
 
   return (
-    <div className="max-w-6xl mx-auto p-6 bg-white rounded shadow mt-10">
+    <div className="animate-slideInFromLeft w-full max-w-6xl mx-auto p-6 bg-white rounded shadow mt-10 ">
       <h2 className="text-2xl font-bold mb-6 text-center">إدارة المنتجات</h2>
       <table className="w-full table-auto border-collapse border border-gray-300">
         <thead>
@@ -89,7 +89,6 @@ export default function AdminProducts() {
             <th className="border border-gray-300 p-2">صورة</th>
             <th className="border border-gray-300 p-2">الاسم</th>
             <th className="border border-gray-300 p-2">السعر</th>
-            <th className="border border-gray-300 p-2">الوصف</th>
             <th className="border border-gray-300 p-2">الإجراءات</th>
           </tr>
         </thead>
@@ -109,7 +108,7 @@ export default function AdminProducts() {
                   <img
                     src={product.image}
                     alt={product.name}
-                    className="w-24 h-16 object-cover mx-auto rounded"
+                    className="w-40 h-16 object-cover mx-auto rounded"
                   />
                 )}
               </td>
@@ -139,41 +138,29 @@ export default function AdminProducts() {
                   `${product.price} جنيه`
                 )}
               </td>
-              <td className="border border-gray-300 p-2 text-center max-w-xs break-words">
-                {editingId === product._id ? (
-                  <textarea
-                    name="description"
-                    value={editedProduct.description}
-                    onChange={handleChange}
-                    className="w-full border border-gray-300 rounded p-1"
-                  />
-                ) : (
-                  product.description || "-"
-                )}
-              </td>
-              <td className="border border-gray-300 p-2 text-center space-x-2">
+              <td className="border border-gray-300 p-2 text-center">
                 {editingId === product._id ? (
                   <button
                     onClick={handleSave}
-                    className="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700"
+                    className="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 text-sm"
                   >
                     حفظ
                   </button>
                 ) : (
-                  <>
+                  <div className="flex flex-col md:flex-row md:space-x-2 space-y-1 md:space-y-0 justify-center items-center">
                     <button
                       onClick={() => handleEditClick(product)}
-                      className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700"
+                      className="bg-blue-600 text-white px-2 py-1 rounded hover:bg-blue-700 text-sm w-full md:w-auto"
                     >
                       تعديل
                     </button>
                     <button
                       onClick={() => handleDelete(product._id)}
-                      className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700"
+                      className="bg-red-600 text-white px-2 py-1 rounded hover:bg-red-700 text-sm w-full md:w-auto"
                     >
                       حذف
                     </button>
-                  </>
+                  </div>
                 )}
               </td>
             </tr>

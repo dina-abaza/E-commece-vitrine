@@ -14,7 +14,7 @@ function OffersPage() {
     const fetchProducts = async () => {
       try {
         const res = await axios.get(
-          `https://e-commece-vitrine-api.vercel.app/api/offers?${categorySlug}&maxPrice=${maxPrice}`
+          `https://e-commece-vitrine-api.vercel.app/api/offers?categorySlug=${categorySlug}&maxPrice=${maxPrice}`
         );
         setProducts(res.data.products); 
       } catch (error) {
@@ -22,9 +22,9 @@ function OffersPage() {
       }
     };
 
-    if (categorySlug && maxPrice) {
+   
       fetchProducts();
-    }
+    
   }, [categorySlug, maxPrice]);
 
   return (

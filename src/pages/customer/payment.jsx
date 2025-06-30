@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import axios from "axios";
 import useCartStore from "../../store/customerStore/cartStore";
@@ -36,28 +37,49 @@ export default function Payment() {
     try {
       setError(null);
 
-      await axios.post(
-        "",
-        {
-          items: cartItems,
-          paymentMethod,
-          customerName,
-          phone,
-          address,
-          totalPrice,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+      // نحضّر البيانات بالشكل اللي الباك إند محتاجه
+      const preparedCartItems = cartItems.map((item) => ({
+        productId: item._id,
+        quantity: item.quantity,
+      }));
+
+      if (paymentMethod === "credit_card") {
+        // الدفع عبر Stripe
+        const response = await axios.post(
+          "https://e-commece-vitrine-api.vercel.app/api/stripe/create-checkout-session",
+          { cartItems: preparedCartItems },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        const checkoutUrl = response.data.url;
+        if (checkoutUrl) {
+          window.location.href = checkoutUrl;
+        } else {
+          setError("❌ لم يتم استلام رابط الدفع.");
         }
-      );
+      } else {
+        // الدفع عند الاستلام
+         await axios.post(
+          "https://e-commece-vitrine-api.vercel.app/api/cash-on-delivery",
+          {
+            cartItems: preparedCartItems,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
-      setSuccessMessage("✅ تم إرسال الطلب بنجاح! سيتم التواصل معك قريبًا.");
-      clearCart();
+        setSuccessMessage("✅ تم تسجيل طلبك للدفع عند الاستلام. سيتم التواصل معك.");
+        clearCart();
+      }
     } catch (err) {
-        console.error("خطأ في الدفع:", err);
-
+      console.error("خطأ في الدفع:", err);
       setError("❌ حدث خطأ أثناء تأكيد الطلب. حاول مرة أخرى.");
     }
   };
@@ -79,7 +101,7 @@ export default function Payment() {
   return (
     <div className="animate-slideInFromLeft max-w-5xl mx-auto shadow-lg rounded p-6 mt-10 bg-white">
       <div className="flex flex-col md:flex-row gap-6 items-start">
-
+        {/* مراجعة المنتجات */}
         <div className="flex-1 max-h-[500px] overflow-y-auto border p-4 rounded bg-gray-50">
           <h3 className="text-lg font-semibold mb-4">مراجعة المنتجات</h3>
           {cartItems.map((item) => (
@@ -102,7 +124,7 @@ export default function Payment() {
           <p className="font-bold text-lg mt-2">المجموع الكلي: {totalPrice} جنيه</p>
         </div>
 
-
+        {/* بيانات الدفع */}
         <div className="flex-1 mt-6 md:mt-0 border p-4 rounded bg-gray-50">
           <h3 className="text-lg font-semibold mb-2">طريقة الدفع</h3>
           <label className="block mb-2">

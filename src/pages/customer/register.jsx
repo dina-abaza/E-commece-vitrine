@@ -22,12 +22,12 @@ export default function Register() {
       const register = await axios.post("https://e-commece-vitrine-api.vercel.app/api/register", form);
 
       if (register.data.message === "تم إنشاء الحساب بنجاح") {
-        // حفظ التوكن وبيانات المستخدم في Zustand store
+
         setToken(register.data.accessToken);
         setUser(register.data.user);
 
-        // بعد التسجيل ممكن توجه المستخدم مثلاً للصفحة الرئيسية أو صفحة تسجيل الدخول
-        navigate("/login");  // أو ممكن تغيرها لـ "/" لو عايز تدخل تلقائي بعد التسجيل
+    
+        navigate("/login");
       }
     } catch (error) {
       alert("حدث خطأ أثناء إنشاء الحساب");

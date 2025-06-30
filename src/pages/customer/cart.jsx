@@ -1,3 +1,4 @@
+
 import React from "react";
 import useCartStore from "../../store/customerStore/cartStore";
 import { Link } from "react-router-dom";
@@ -8,7 +9,6 @@ export default function Cart() {
   const decreaseItem = useCartStore((state) => state.decreaseItem);
   const deletItem = useCartStore((state) => state.deletItem);
 
-  
   const totalPrice = cartItems.reduce((total, item) => {
     return total + item.price * item.quantity;
   }, 0);
@@ -24,55 +24,55 @@ export default function Cart() {
           {cartItems.map((item) => (
             <div
               key={item._id}
-              className="flex items-center gap-5 mb-4 p-4 border rounded shadow"
+              className="flex flex-col sm:flex-row items-center gap-4 mb-4 p-2 border rounded shadow"
             >
               <img
                 src={item.image}
                 alt={item.name}
-                className="w-20 h-20 object-cover rounded"
+                className="w-48 h-38 object-cover rounded"
               />
-              <div className="flex-1 mr-4">
+              <div className="flex-1 mr-4 text-right">
                 <h3 className="text-lg font-semibold">{item.name}</h3>
                 <p className="text-gray-700">السعر: {item.price} جنيه</p>
-                <p className="text-red-600">
-                  {item.offer.discountPercent}%
+                <p className="text-red-600">{item.offer.discountPercent}%</p>
+              </div>
+
               
-                </p>
-              </div>
-              <div className="flex items-center space-x-2">
+              <div className="flex flex-col sm:flex-row items-center sm:space-x-2 space-y-1 sm:space-y-0 mt-3 sm:mt-0">
+
+                <div className="flex items-center space-x-2 sm:space-x-3">
+                  <button
+                    onClick={() => decreaseItem(item._id)}
+                    className="bg-gray-200 px-2 py-1 text-sm rounded hover:bg-gray-300 transition"
+                  >
+                    -
+                  </button>
+                  <span className="text-base">{item.quantity}</span>
+                  <button
+                    onClick={() => increaseItem(item._id)}
+                    className="bg-gray-200 px-2 py-1 text-sm rounded hover:bg-gray-300 transition"
+                  >
+                    +
+                  </button>
+                </div>
+
                 <button
-                  onClick={() => decreaseItem(item._id)}
-                  className="bg-gray-200 px-2 rounded"
+                  onClick={() => deletItem(item._id)}
+                  className="bg-red-600 text-white px-3 py-1 rounded text-sm hover:bg-red-700 transition"
                 >
-                  -
-                </button>
-                <span>{item.quantity}</span>
-                <button
-                  onClick={() => increaseItem(item._id)}
-                  className="bg-gray-200 px-2 rounded"
-                >
-                  +
+                  حذف
                 </button>
               </div>
-              <button
-                onClick={() => deletItem(item._id)}
-                className="ml-4 bg-red-600 text-white px-3 py-1 rounded"
-              >
-                delete
-              </button>
             </div>
           ))}
 
-      
           <div className="text-right mt-6 font-bold text-xl">
             السعر الكلي: {totalPrice} جنيه
           </div>
-           <Link
-         to="/payment"
-        className="text-cyan-600 hover: font-semibold"
-      >
-        اشتري الان
-      </Link>
+
+          <Link to="/payment" className="text-cyan-600 hover:font-semibold">
+            اشتري الان
+          </Link>
         </>
       )}
     </div>

@@ -1,3 +1,4 @@
+
 import React from "react";
 import Sidebar from "../components/admin/sideBar";
 import Navbar from "../components/admin/navBar";
@@ -5,12 +6,22 @@ import { Outlet } from "react-router-dom";
 
 const AdminLayout = () => {
   return (
-    <div>
+    <div className="min-h-screen">
+
       <Sidebar />
-      <Navbar />
-      <main className="animate-slideInFromLeft ml-56 mt-16 p-6">
-        <Outlet />
-      </main>
+
+  
+      <div className="md:ml-56 flex flex-col min-h-screen">
+        
+        <div>
+          <Navbar />
+        </div>
+
+      
+        <main className="flex-1 p-6 flex flex-col items-center">
+          <Outlet />
+        </main>
+      </div>
     </div>
   );
 };

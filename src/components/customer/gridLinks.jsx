@@ -36,20 +36,21 @@ const CategoriesGrid = () => {
   if (error) return <p className="text-red-500 text-center mt-10">Error: {error}</p>;
 
   return (
-    <div className="max-w-7xl mx-auto py-10 px-4">
-      <div className="grid grid-cols-4 gap-6">
-        {categories.map(cat => (
-          <Link
-            key={cat._id}
-            to={`/${cat.slug}/${cat._id}`}
-            className="flex flex-col items-center justify-center bg-gray-100 p-6 rounded cursor-pointer hover:bg-gray-300 transition text-center no-underline text-black min-h-[150px]"
-          >
-            {iconMap[cat.slug] || <FaHome className="text-4xl mb-3 text-gray-400" />}
-            {cat.name}
-          </Link>
-        ))}
-      </div>
-    </div>
+ <div className="max-w-7xl mx-auto py-10 px-4">
+  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    {categories.map(cat => (
+      <Link
+        key={cat._id}
+        to={`/${cat.slug}/${cat._id}`}
+        className="flex flex-col items-center justify-center bg-gray-100 p-6 rounded cursor-pointer hover:bg-gray-300 transition text-center no-underline text-black min-h-[150px]"
+      >
+        {iconMap[cat.slug] || <FaHome className="text-4xl mb-3 text-gray-400" />}
+        {cat.name}
+      </Link>
+    ))}
+  </div>
+</div>
+
   );
 };
 
