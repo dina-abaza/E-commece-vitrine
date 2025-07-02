@@ -10,27 +10,67 @@ export default function AddProduct() {
   const [categoryId, setCategoryId] = useState("");
   const [imageFile, setImageFile] = useState(null);
 
+  // حالة الخصم
+  const [offer, setOffer] = useState({
+    isActive: false,
+    discountPercent: 0,
+    discountedPrice: 0,
+  });
+
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
-
   useEffect(() => {
     async function fetchCategories() {
       try {
-        const res = await axios.get("https://e-commece-vitrine-api.vercel.app/api/categories", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const res = await axios.get(
+          "https://e-commece-vitrine-api.vercel.app/api/categories",
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
         setCategories(res.data || []);
       } catch (error) {
         console.error("فشل جلب التصنيفات", error);
       }
     }
-
-    fetchCategories();
+    if (token) fetchCategories();
   }, [token]);
+
+  // دالة لحساب السعر بعد الخصم أو تحديث نسبة الخصم بناءً على السعر بعد الخصم
+  function updateDiscountPercent(value) {
+    let discount = Number(value);
+    if (discount < 0) discount = 0;
+    if (discount > 100) discount = 100;
+
+    // نحسب السعر بعد الخصم
+    const discounted = price
+      ? (price - (price * discount) / 100).toFixed(2)
+      : 0;
+
+    setOffer({
+      ...offer,
+      discountPercent: discount,
+      discountedPrice: discounted,
+    });
+  }
+
+  function updateDiscountedPrice(value) {
+    let discountedPrice = Number(value);
+    if (discountedPrice < 0) discountedPrice = 0;
+
+    // نحسب نسبة الخصم بناءً على السعر بعد الخصم
+    const discountPercent = price
+      ? ((1 - discountedPrice / price) * 100).toFixed(2)
+      : 0;
+
+    setOffer({
+      ...offer,
+      discountedPrice,
+      discountPercent: discountPercent > 100 ? 100 : discountPercent < 0 ? 0 : discountPercent,
+    });
+  }
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -50,11 +90,6 @@ export default function AddProduct() {
 
     setLoading(true);
     setMessage("");
-    
-  console.log("name:", name);
-  console.log("price:", price);
-  console.log("categoryId:", categoryId);
-  console.log("imageFile:", imageFile);
 
     try {
       const formData = new FormData();
@@ -63,7 +98,18 @@ export default function AddProduct() {
       formData.append("categoryId", categoryId);
       formData.append("image", imageFile);
 
-
+      // إذا تم تفعيل الخصم فقط نضيفه
+      if (offer.isActive) {
+        formData.append("offer", JSON.stringify({
+          isActive: true,
+          discountPercent: Number(offer.discountPercent),
+          discountedPrice: Number(offer.discountedPrice),
+        }));
+      } else {
+        formData.append("offer", JSON.stringify({
+          isActive: false,
+        }));
+      }
 
       await axios.post(
         "https://e-commece-vitrine-api.vercel.app/api/addproduct",
@@ -81,6 +127,7 @@ export default function AddProduct() {
       setPrice("");
       setCategoryId("");
       setImageFile(null);
+      setOffer({ isActive: false, discountPercent: 0, discountedPrice: 0 });
     } catch (error) {
       setMessage("حدث خطأ أثناء إضافة المنتج");
       console.error(error);
@@ -108,12 +155,18 @@ export default function AddProduct() {
           name="price"
           placeholder="السعر"
           value={price}
-          onChange={(e) => setPrice(e.target.value)}
+          onChange={(e) => {
+            setPrice(e.target.value);
+            // لما السعر يتغير نحسب الخصم او نحدث السعر بعد الخصم
+            if (offer.isActive) {
+              updateDiscountPercent(offer.discountPercent);
+            }
+          }}
           required
+          min="0"
           className="bg-gray-100 rounded-md px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-400 transition"
         />
 
-      
         <select
           value={categoryId}
           onChange={(e) => setCategoryId(e.target.value)}
@@ -135,6 +188,40 @@ export default function AddProduct() {
           required
           className="bg-gray-100 rounded-md px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-400 transition"
         />
+
+        {/* تفعيل خصم */}
+        <label className="flex items-center gap-3 mt-3">
+          <input
+            type="checkbox"
+            checked={offer.isActive}
+            onChange={(e) => setOffer({ ...offer, isActive: e.target.checked })}
+          />
+          <span>تفعيل الخصم</span>
+        </label>
+
+        {/* إذا الخصم مفعل، تظهر الحقول */}
+        {offer.isActive && (
+          <>
+            <input
+              type="number"
+              min="0"
+              max="100"
+              placeholder="نسبة الخصم (%)"
+              value={offer.discountPercent}
+              onChange={(e) => updateDiscountPercent(e.target.value)}
+              className="bg-gray-100 rounded-md px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-400 transition"
+            />
+
+            <input
+              type="number"
+              min="0"
+              placeholder="السعر بعد الخصم"
+              value={offer.discountedPrice}
+              onChange={(e) => updateDiscountedPrice(e.target.value)}
+              className="bg-gray-100 rounded-md px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-400 transition"
+            />
+          </>
+        )}
 
         <button
           type="submit"

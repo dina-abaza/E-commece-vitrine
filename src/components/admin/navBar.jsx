@@ -12,9 +12,12 @@ const Navbar = () => {
       <div className="flex items-center gap-2 md:gap-4">
         <span className="text-sm text-gray-700 hidden sm:inline">👋 Welcome</span>
 
-        <Link to="/" className="text-xl md:text-2xl hover:text-cyan-700 cursor-pointer">
-          🛒
-        </Link>
+        <Link 
+        to="/" 
+        className="text-xl md:text-2xl hover:text-cyan-700 cursor-pointer hover:scale-125 transition-transform duration-300 animate-pulse"
+      >
+        🛒
+      </Link>
       </div>
     </div>
   );

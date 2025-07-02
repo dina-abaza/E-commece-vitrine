@@ -10,19 +10,19 @@ function Home() {
       <ImageSlider />
       <CategoriesGrid />
 
-  <div className="flex flex-col gap-10 mb-10">
+  <div className="flex flex-col gap-y-20">
   <OfferCard
     image="/kanapa.jpg"
     title="قطع تبدأ من 500"
     link="/offers?categorySlug=single-pieces&maxPrice=3000"
   />
   <OfferCard
-    image="/room.jpg"
+    image="/master-1-1.jpg"
     title="غرف نوم تبدأ من 20 الف"
     link="/offers?categorySlug=bedroom&maxPrice=20000"
   />
   <OfferCard
-    image="/rokna.webp"
+    image="/rokan.jpg"
     title="ركن تبدأ من 7 الاف"
     link="/offers?categorySlug=living-room&maxPrice=15000"
   />

@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 
 export default function Payment() {
   const cartItems = useCartStore((state) => state.cartItems);
-  const clearCart = useCartStore((state) => state.clearCart);
   const token = useAuthStore((state) => state.token);
   const navigate = useNavigate();
 
@@ -76,7 +75,7 @@ export default function Payment() {
         );
 
         setSuccessMessage("✅ تم تسجيل طلبك للدفع عند الاستلام. سيتم التواصل معك.");
-        clearCart();
+      
       }
     } catch (err) {
       console.error("خطأ في الدفع:", err);

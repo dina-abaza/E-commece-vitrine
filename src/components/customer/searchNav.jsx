@@ -18,21 +18,24 @@ export default function SearchNav() {
 
   return (
     <div className="w-full bg-white p-4">
-      {/* Container الأكبر ينظم layout حسب الشاشة */}
+
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-4 md:gap-0">
 
-        {/* اللوجو والبحث */}
+        
         <div className="flex flex-col sm:flex-row items-center sm:items-center gap-3 sm:gap-5 flex-grow">
 
-          {/* اللوجو */}
+      
           <h1 className="flex items-center gap-2 text-yellow-500 flex-shrink-0">
             <Link to="/admin/login" title="Admin Login">
-              <MdDashboard className="cursor-pointer hover:text-yellow-700" size={24} sm="size-30" />
-            </Link>
+            <MdDashboard 
+            className="cursor-pointer hover:text-yellow-700 hover:scale-125 transition-transform duration-300 animate-pulse" 
+            size={24} 
+        />
+      </Link>
             <Link to="/" className="text-xl sm:text-2xl font-bold">vitrine</Link>
           </h1>
 
-          {/* البحث */}
+          
           <div className="flex items-center border border-gray-300 rounded-md py-2 px-3 flex-grow min-w-0 max-w-full">
             <FiSearch className="text-gray-500 text-xl mr-2" />
             <input
@@ -43,10 +46,10 @@ export default function SearchNav() {
           </div>
         </div>
 
-        {/* القسم اللي فيه اللغة، تسجيل الدخول/الخروج، والسلة */}
+        
         <div className="flex items-center gap-6 md:gap-10 justify-center md:justify-end flex-wrap sm:flex-nowrap">
 
-          {/* اللغة */}
+          
           <select
             value={lang}
             onChange={(e) => setLang(e.target.value)}
@@ -56,7 +59,7 @@ export default function SearchNav() {
             <option value="الانجليزيه">الإنجليزية</option>
           </select>
 
-          {/* تسجيل الدخول أو الخروج */}
+          
           {user ? (
             <button
               onClick={handleLogout}
@@ -72,7 +75,7 @@ export default function SearchNav() {
             </Link>
           )}
 
-          {/* السلة */}
+      
           <Link to="/cart" className="text-gray-700 text-2xl">
             <FiShoppingCart />
           </Link>
