@@ -18,7 +18,7 @@ export default function Payment() {
   const [successMessage, setSuccessMessage] = useState("");
 
   const totalPrice = cartItems.reduce(
-    (sum, item) => sum + item.price * item.quantity,
+    (sum, item) => sum + item.offer.discountedPrice * item.quantity,
     0
   );
 
@@ -36,14 +36,14 @@ export default function Payment() {
     try {
       setError(null);
 
-      // نحضّر البيانات بالشكل اللي الباك إند محتاجه
+  
       const preparedCartItems = cartItems.map((item) => ({
         productId: item._id,
         quantity: item.quantity,
       }));
 
       if (paymentMethod === "credit_card") {
-        // الدفع عبر Stripe
+      
         const response = await axios.post(
           "https://e-commece-vitrine-api.vercel.app/api/stripe/create-checkout-session",
           { cartItems: preparedCartItems },
@@ -61,7 +61,7 @@ export default function Payment() {
           setError("❌ لم يتم استلام رابط الدفع.");
         }
       } else {
-        // الدفع عند الاستلام
+      
          await axios.post(
           "https://e-commece-vitrine-api.vercel.app/api/cash-on-delivery",
           {
@@ -100,7 +100,7 @@ export default function Payment() {
   return (
     <div className="animate-slideInFromLeft max-w-5xl mx-auto shadow-lg rounded p-6 mt-10 bg-white">
       <div className="flex flex-col md:flex-row gap-6 items-start">
-        {/* مراجعة المنتجات */}
+      
         <div className="flex-1 max-h-[500px] overflow-y-auto border p-4 rounded bg-gray-50">
           <h3 className="text-lg font-semibold mb-4">مراجعة المنتجات</h3>
           {cartItems.map((item) => (
@@ -115,7 +115,11 @@ export default function Payment() {
                   <p className="font-semibold">{item.name}</p>
                   <p>الكمية: {item.quantity}</p>
                   <p>السعر: {item.price} جنيه</p>
-                  <p>الإجمالي: {item.price * item.quantity} جنيه</p>
+                  <p>
+                    السعر بعد الخصم: <span className="text-green-600 font-bold">{item.offer.discountedPrice}جنيه</span>
+                  </p> 
+                  
+                  <p>الإجمالي: {item.offer.discountedPrice * item.quantity} جنيه</p>
                 </div>
               </div>
             </div>
@@ -123,7 +127,7 @@ export default function Payment() {
           <p className="font-bold text-lg mt-2">المجموع الكلي: {totalPrice} جنيه</p>
         </div>
 
-        {/* بيانات الدفع */}
+        
         <div className="flex-1 mt-6 md:mt-0 border p-4 rounded bg-gray-50">
           <h3 className="text-lg font-semibold mb-2">طريقة الدفع</h3>
           <label className="block mb-2">

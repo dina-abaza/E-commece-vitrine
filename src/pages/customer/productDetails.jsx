@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from "axios";
+import useCartStore from "../../store/customerStore/cartStore";
 
 export default function ProductDetails() {
   const { id } = useParams();
@@ -10,12 +11,13 @@ export default function ProductDetails() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const addToCart = useCartStore(state => state.addToCart);
+
   useEffect(() => {
     async function fetchProduct() {
       try {
         const res = await axios.get("https://e-commece-vitrine-api.vercel.app/api/products");
-        console.log(res);
-        const foundProduct = res.data.find(p => p._id === (id));
+        const foundProduct = res.data.find(p => p._id === id);
 
         if (!foundProduct) {
           setError("المنتج غير موجود");
@@ -23,8 +25,7 @@ export default function ProductDetails() {
           setProduct(foundProduct);
         }
       } catch (err) {
-     setError(`حدث خطأ أثناء جلب بيانات المنتج: ${err.message}`);
-
+        setError(`حدث خطأ أثناء جلب بيانات المنتج: ${err.message}`);
       } finally {
         setLoading(false);
       }
@@ -32,8 +33,21 @@ export default function ProductDetails() {
     fetchProduct();
   }, [id]);
 
-  const increase= () => setQuantity(prev => prev + 1);
+  const increase = () => setQuantity(prev => prev + 1);
   const decrease = () => setQuantity(prev => (prev > 1 ? prev - 1 : 1));
+
+  const handleAddToCart = () => {
+    if (!color) {
+      alert("من فضلك اختر اللون أولاً");
+      return;
+    }
+    addToCart({
+      ...product,
+      color,
+      quantity,
+    });
+    alert("تمت إضافة المنتج للسلة!");
+  };
 
   if (loading) return <p>جاري التحميل...</p>;
   if (error) return <p className="text-red-600">{error}</p>;
@@ -48,9 +62,9 @@ export default function ProductDetails() {
         className="w-full h-64 object-cover rounded"
       />
       <p className="my-4">{product.description}</p>
-      <p className="font-semibold mb-4">السعر: {product.price}</p>
+      <p className="font-semibold mb-4">السعر: {product.price} جنيه</p>
       <span className="text-sm text-white bg-red-500 p-1 rounded">{product.offer.discountPercent}%</span>
-      <p className="font-bold mt-2 mb-4">{product.offer.discountedPrice}جنيه</p>
+      <p className="font-bold mt-2 mb-4">{product.offer.discountedPrice} جنيه</p>
 
       <label htmlFor="colorSelect" className="block mb-2 font-semibold">
         اختر اللون:
@@ -59,15 +73,12 @@ export default function ProductDetails() {
         id="colorSelect"
         value={color}
         onChange={(e) => setColor(e.target.value)}
-        className=" w-full border rounded px-3 py-2 mb-4"
-
-
+        className="w-full border rounded px-3 py-2 mb-4"
       >
         <option value="">-- اختر اللون --</option>
-        <option value="black">اسود</option>
+        <option value="black">أسود</option>
         <option value="blue">أزرق</option>
         <option value="gray">رمادي</option>
-
       </select>
 
       <div className="flex items-center gap-4 mb-6">
@@ -86,12 +97,12 @@ export default function ProductDetails() {
         </button>
       </div>
 
-      <Link
-         to={`/payment?id=${product._id}&color=${color}&quantity=${quantity}`}
+      <button
+        onClick={handleAddToCart}
         className="text-cyan-600 hover:underline font-semibold"
       >
-        اشتري الان
-      </Link>
+        أضف إلى السلة
+      </button>
     </div>
   );
 }

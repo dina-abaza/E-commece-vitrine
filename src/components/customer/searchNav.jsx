@@ -1,9 +1,10 @@
 
 import React, { useState } from "react";
-import { FiSearch, FiShoppingCart, FiUser } from 'react-icons/fi';
+import { FiShoppingCart, FiUser } from 'react-icons/fi';
 import { Link, useNavigate } from "react-router-dom"; 
 import { MdDashboard } from "react-icons/md";
 import useAuthStore from "../../store/customerStore/authStore";
+import SearchAutocomplete from "./searchAutoComplet";
 
 export default function SearchNav() {
   const [lang, setLang] = useState('العربيه');
@@ -18,48 +19,37 @@ export default function SearchNav() {
 
   return (
     <div className="w-full bg-white p-4">
-
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-4 md:gap-0">
-
         
-        <div className="flex flex-col sm:flex-row items-center sm:items-center gap-3 sm:gap-5 flex-grow">
-
-      
+        <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-5 flex-grow">
+        
           <h1 className="flex items-center gap-2 text-yellow-500 flex-shrink-0">
             <Link to="/admin/login" title="Admin Login">
-            <MdDashboard 
-            className="cursor-pointer hover:text-yellow-700 hover:scale-125 transition-transform duration-300 animate-pulse" 
-            size={24} 
-        />
-      </Link>
+              <MdDashboard 
+                className="cursor-pointer hover:text-yellow-700 hover:scale-125 transition-transform duration-300 animate-pulse" 
+                size={24} 
+              />
+            </Link>
             <Link to="/" className="text-xl sm:text-2xl font-bold">vitrine</Link>
           </h1>
 
-          
-          <div className="flex items-center border border-gray-300 rounded-md py-2 px-3 flex-grow min-w-0 max-w-full">
-            <FiSearch className="text-gray-500 text-xl mr-2" />
-            <input
-              type="text" 
-              placeholder="ابحث..." 
-              className="flex-grow outline-none text-gray-700 min-w-0"
-            />
+    
+          <div className="flex-grow min-w-0 max-w-full">
+            <SearchAutocomplete />
           </div>
         </div>
 
-        
         <div className="flex items-center gap-6 md:gap-10 justify-center md:justify-end flex-wrap sm:flex-nowrap">
-
           
           <select
             value={lang}
             onChange={(e) => setLang(e.target.value)}
-            className="p-2 border border-gray-300 rounded-md text-gray-700 "
+            className="p-2 border border-gray-300 rounded-md text-gray-700"
           >
             <option value="العربيه">العربية</option>
             <option value="الانجليزيه">الإنجليزية</option>
           </select>
 
-          
           {user ? (
             <button
               onClick={handleLogout}
@@ -75,7 +65,6 @@ export default function SearchNav() {
             </Link>
           )}
 
-      
           <Link to="/cart" className="text-gray-700 text-2xl">
             <FiShoppingCart />
           </Link>
