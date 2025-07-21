@@ -25,6 +25,7 @@ import AdminRoute from './routes/adminRoute';
 import AddProduct from './pages/admin/addProduct';
 import AdminProducts from './pages/admin/adminProducts';
 import OffersPage from './pages/customer/offersPage';
+import Sendmessages from './pages/admin/sendMessage';
 
 function App() {
   return (
@@ -66,9 +67,10 @@ function App() {
           <Route
             path="users"
             element={
-              <AdminProducts>
+            <AdminRoute>
                 <UsersPage />
-              </AdminProducts>
+            </AdminRoute>
+            
                
             
             }
@@ -76,9 +78,9 @@ function App() {
           <Route
             path="orders"
             element={
-              <AdminRoute>
+              
                  <OrdersPage />
-              </AdminRoute>
+          
                
               
             }
@@ -110,9 +112,16 @@ function App() {
                <AdminProducts/>
             </AdminRoute>
              
-            
         
           }/>
+
+          <Route path="messages"
+          element={
+            <AdminRoute>
+              <Sendmessages/>
+            </AdminRoute>
+          }
+          />
 
         </Route>
 

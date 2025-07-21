@@ -2,75 +2,124 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import AdminUseAuthStore from "../../store/adminStore/adminAuthStore";
 
-export default function OrdersPage() {
+export default function AdminOrders() {
   const [orders, setOrders] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const token = AdminUseAuthStore((state) => state.token);
+  const [users, setUsers] = useState([]);
+  const [userId, setUserId] = useState("");
+  const [status, setStatus] = useState("");
+  const token =AdminUseAuthStore((state)=>state.token)
+ 
 
-  function renderStatus(status) {
-    if (status === "pending") return "قيد الانتظار";
-    if (status === "completed") return "مكتمل";
-    return "غير معروف";
-  }
-
-  useEffect(() => {
-    async function fetchOrders() {
-      try {
-        const res = await axios.get("/api/orders", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        if (Array.isArray(res.data)) {
-          setOrders(res.data);
-        } else {
-          setOrders([]);
-        }
-      } catch (err) {
-        console.error("Error fetching orders:", err);
-      } finally {
-        setLoading(false);
-      }
+  
+  useEffect(()=>{
+ const fetchUsers = async () => {
+    try {
+      const res = await axios.get("https://e-commece-vitrine-api.vercel.app/api/Users", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setUsers(res.data.users);
+    } catch (err) {
+      console.error("خطأ في جلب المستخدمين",err);
     }
-    fetchOrders();
-  }, [token]);
+  };
+  
+  fetchUsers()
+  },[])
+ 
 
-  if (loading)
-    return <p className="p-10 text-center text-lg">جاري تحميل الطلبات ...</p>;
+
+  useEffect(()=>{
+  const fetchOrders = async () => {
+    try {
+      const query = new URLSearchParams();
+      if (userId) query.append("userId", userId);
+      if (status) query.append("status", status);
+
+    
+      const res =await axios.get(`https://e-commece-vitrine-api.vercel.app/api/admin/orders?${query.toString()}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setOrders(res.data.orders || []);
+    } catch (err) {
+      console.error("خطأ في تحميل الطلبات",err);
+    }
+  };
+  
+  fetchOrders()
+  },[userId,status])
+
+ 
+
 
   return (
-<div className="p-4 w-full max-w-3xl mx-auto mt-10 overflow-x-auto">
-  <h2 className="text-2xl font-bold mb-6 text-blue-900 text-center">الطلبات</h2>
+    <div className="p-4 max-w-6xl mx-auto mt-10">
+      <h1 className="text-2xl font-bold mb-6">لوحة الطلبات</h1>
 
-  <table className="min-w-[600px] w-full border-collapse border border-gray-300 text-center text-sm sm:text-base table-auto">
-    <thead>
-      <tr className="text-blue-900 bg-blue-100">
-        <th className="border border-gray-300 p-2">رقم الطلب</th>
-        <th className="border border-gray-300 p-2">اسم العميل</th>
-        <th className="border border-gray-300 p-2">الإجمالي</th>
-        <th className="border border-gray-300 p-2">الحالة</th>
-        <th className="border border-gray-300 p-2">التاريخ</th>
-      </tr>
-    </thead>
-    <tbody>
+    
+      <div className="flex flex-wrap gap-4 mb-6">
+        <select onChange={(e) => setUserId(e.target.value)} className="border px-3 py-2 rounded w-full sm:w-auto">
+          <option value="">كل المستخدمين</option>
+          {users.map((user) => (
+            <option key={user._id} value={user._id}>
+              {user.name || user.email}
+            </option>
+          ))}
+        </select>
+
+        <select onChange={(e) => setStatus(e.target.value)} className="border px-3 py-2 rounded w-full sm:w-auto">
+          <option value="">كل الحالات</option>
+          <option value="pending">قيد الانتظار</option>
+          <option value="completed">مكتمل</option>
+          <option value="cancelled">ملغي</option>
+        </select>
+      </div>
+
+    
       {orders.length === 0 ? (
-        <tr>
-          <td colSpan="5" className="text-center p-4 text-red-700">
-            لا توجد طلبات حالياً
-          </td>
-        </tr>
+        <p>لا توجد طلبات.</p>
       ) : (
-        orders.map((order) => (
-          <tr key={order.id} className="hover:bg-gray-100 text-red-800">
-            <td className="border border-gray-300 p-2">{order.id}</td>
-            <td className="border border-gray-300 p-2">{order.user}</td>
-            <td className="border border-gray-300 p-2">{order.total} جنيه</td>
-            <td className="border border-gray-300 p-2">{renderStatus(order.status)}</td>
-            <td className="border border-gray-300 p-2">{order.date}</td>
-          </tr>
-        ))
-      )}
-    </tbody>
-  </table>
-</div>
+        <div className="space-y-6">
+          {orders.map((order) => (
+            <div key={order._id} className="border rounded p-4 shadow-sm bg-white">
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-3 gap-2">
+              
+                  <p className="font-bold text-gray-800">رقم الطلب: {order._id}</p>
+                  <p className="text-sm text-gray-600">المستخدم: {order.userId}</p>
+                  <p className="text-sm text-gray-600">الحالة: {order.status}</p>
+                  <p className="text-sm text-gray-600">بتاريخ: {new Date(order.createdAt).toLocaleString()}</p>
+              
+              </div>
 
+  
+        <div className="mt-2">
+          <h3 className="font-semibold mb-2">المنتجات:</h3>
+          <div className="space-y-2">
+             {order.products.map((item) => (
+              <div key={item._id} className="flex items-center gap-4 border-b pb-2">
+                <img
+                src={item.productId.image }
+                alt={item.productId.title }
+                className="w-16 h-16 object-cover rounded"
+            />
+          <div>
+            <p className="font-semibold">{item.productId.title || "اسم غير متاح"}</p>
+            <p className="text-sm text-gray-600">الكمية: {item.productId.quantity}</p>
+            <p className="text-sm text-gray-600">السعر: {item.productId.price} جنيه</p>
+          </div>
+        </div>
+       ))}
+       </div>
+      </div>
+
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
   );
 }

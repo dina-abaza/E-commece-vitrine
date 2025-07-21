@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import AdminUseAuthStore from "../../store/adminStore/adminAuthStore";
@@ -13,23 +14,19 @@ export default function AdminProducts() {
   useEffect(() => {
     async function fetchProducts() {
       try {
-        const res = await axios.get(
-          "https://e-commece-vitrine-api.vercel.app/api/products",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const res = await axios.get("https://e-commece-vitrine-api.vercel.app/api/products", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         setProducts(res.data);
         setError(null);
       } catch (err) {
-        setError("فشل في تحميل المنتجات",err.message);
+        setError("فشل في تحميل المنتجات",err);
       } finally {
         setLoading(false);
       }
     }
-
     fetchProducts();
   }, [token]);
 
@@ -46,19 +43,18 @@ export default function AdminProducts() {
   };
 
   const handleChange = (e) => {
-  if (e.target.files) {
-    setEditedProduct(prev => ({
-      ...prev,
-      [e.target.name]: e.target.files[0]
-    }));
-  } else {
-    setEditedProduct(prev => ({
-      ...prev,
-      [e.target.name]: e.target.value
-    }));
-  }
-};
-
+    if (e.target.files) {
+      setEditedProduct((prev) => ({
+        ...prev,
+        [e.target.name]: e.target.files[0],
+      }));
+    } else {
+      setEditedProduct((prev) => ({
+        ...prev,
+        [e.target.name]: e.target.value,
+      }));
+    }
+  };
 
   const handleSave = async () => {
     const formData = new FormData();
@@ -90,7 +86,7 @@ export default function AdminProducts() {
       setEditingId(null);
       setEditedProduct({});
     } catch (err) {
-      alert("حدث خطأ أثناء تحديث المنتج",err.message);
+      alert("حدث خطأ أثناء تحديث المنتج",err);
     }
   };
 
@@ -107,101 +103,98 @@ export default function AdminProducts() {
       );
       setProducts((prev) => prev.filter((p) => p._id !== id));
     } catch (err) {
-      alert("فشل في حذف المنتج",err.message);
+      alert("فشل في حذف المنتج",err);
     }
   };
 
   return (
     <div className="max-w-6xl mx-auto mt-10 p-4 bg-white shadow rounded">
       <h2 className="text-xl font-bold text-center mb-6">إدارة المنتجات</h2>
+
       {loading ? (
         <p>جارٍ تحميل المنتجات...</p>
       ) : error ? (
         <p className="text-red-500">{error}</p>
       ) : (
-        <table className="w-full border">
-          <thead className="bg-gray-100">
-            <tr>
-              <th className="border p-2">صورة</th>
-              <th className="border p-2">الاسم</th>
-              <th className="border p-2">السعر</th>
-              <th className="border p-2">سعر الخصم</th>
-              <th className="border p-2">التصنيف</th>
-              <th className="border p-2">إجراءات</th>
-            </tr>
-          </thead>
-          <tbody>
+        <>
+          {/* ✅ موبايل: بطاقات */}
+          <div className="md:hidden space-y-4">
             {products.map((product) => (
-              <tr key={product._id}>
-                <td className="border p-2 text-center">
-                  {editingId === product._id ? (
-                    <input
-                      type="file"
-                      name="image"
-                      onChange={handleChange}
-                    />
-                  ) : (
-                    <img
-                      src={product.image}
-                      alt={product.name}
-                      className="w-24 h-16 object-cover mx-auto"
-                    />
-                  )}
-                </td>
-                <td className="border p-2">
-                  {editingId === product._id ? (
-                    <input
-                      name="name"
-                      value={editedProduct.name}
-                      onChange={handleChange}
-                      className="w-full border p-1"
-                    />
-                  ) : (
-                    product.name
-                  )}
-                </td>
-                <td className="border p-2 text-center">
-                  {editingId === product._id ? (
-                    <input
-                      type="number"
-                      name="price"
-                      value={editedProduct.price}
-                      onChange={handleChange}
-                      className="w-full border p-1"
-                    />
-                  ) : (
-                    `${product.price} جنيه`
-                  )}
-                </td>
-                <td className="border p-2 text-center">
-                  {editingId === product._id ? (
-                    <input
-                      type="number"
-                      name="discountedPrice"
-                      value={editedProduct.discountedPrice}
-                      onChange={handleChange}
-                      className="w-full border p-1"
-                    />
-                  ) : product.offer?.discountedPrice ? (
-                    `${product.offer.discountedPrice} جنيه`
-                  ) : (
-                    "-"
-                  )}
-                </td>
-                <td className="border p-2 text-center">
-                  {editingId === product._id ? (
-                    <input
-                      type="text"
-                      name="categoryId"
-                      value={editedProduct.categoryId}
-                      onChange={handleChange}
-                      className="w-full border p-1"
-                    />
-                  ) : (
-                    product.categoryId
-                  )}
-                </td>
-                <td className="border p-2 text-center">
+              <div key={product._id} className="border p-4 rounded shadow">
+                {editingId === product._id ? (
+                  <input type="file" name="image" onChange={handleChange} />
+                ) : (
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="w-full h-40 object-cover mb-2"
+                  />
+                )}
+
+                <div className="space-y-1">
+                  <div>
+                    <strong>الاسم:</strong>{" "}
+                    {editingId === product._id ? (
+                      <input
+                        name="name"
+                        value={editedProduct.name}
+                        onChange={handleChange}
+                        className="w-full border p-1"
+                      />
+                    ) : (
+                      product.name
+                    )}
+                  </div>
+
+                  <div>
+                    <strong>السعر:</strong>{" "}
+                    {editingId === product._id ? (
+                      <input
+                        type="number"
+                        name="price"
+                        value={editedProduct.price}
+                        onChange={handleChange}
+                        className="w-full border p-1"
+                      />
+                    ) : (
+                      `${product.price} جنيه`
+                    )}
+                  </div>
+
+                  <div>
+                    <strong>الخصم:</strong>{" "}
+                    {editingId === product._id ? (
+                      <input
+                        type="number"
+                        name="discountedPrice"
+                        value={editedProduct.discountedPrice}
+                        onChange={handleChange}
+                        className="w-full border p-1"
+                      />
+                    ) : product.offer?.discountedPrice ? (
+                      `${product.offer.discountedPrice} جنيه`
+                    ) : (
+                      "-"
+                    )}
+                  </div>
+
+                  <div>
+                    <strong>التصنيف:</strong>{" "}
+                    {editingId === product._id ? (
+                      <input
+                        type="text"
+                        name="categoryId"
+                        value={editedProduct.categoryId}
+                        onChange={handleChange}
+                        className="w-full border p-1"
+                      />
+                    ) : (
+                      product.categoryId
+                    )}
+                  </div>
+                </div>
+
+                <div className="flex gap-2 mt-3 justify-end">
                   {editingId === product._id ? (
                     <button
                       onClick={handleSave}
@@ -210,7 +203,7 @@ export default function AdminProducts() {
                       حفظ
                     </button>
                   ) : (
-                    <div className="flex gap-2 justify-center">
+                    <>
                       <button
                         onClick={() => handleEditClick(product)}
                         className="bg-blue-600 text-white px-2 py-1 rounded"
@@ -223,13 +216,128 @@ export default function AdminProducts() {
                       >
                         حذف
                       </button>
-                    </div>
+                    </>
                   )}
-                </td>
-              </tr>
+                </div>
+              </div>
             ))}
-          </tbody>
-        </table>
+          </div>
+
+          {/* ✅ تابلت وكمبيوتر: جدول */}
+          <div className="hidden md:block overflow-auto mt-6">
+            <table className="w-full border text-sm">
+              <thead className="bg-gray-100">
+                <tr>
+                  <th className="border p-2">صورة</th>
+                  <th className="border p-2">الاسم</th>
+                  <th className="border p-2">السعر</th>
+                  <th className="border p-2">سعر الخصم</th>
+                  <th className="border p-2">التصنيف</th>
+                  <th className="border p-2">إجراءات</th>
+                </tr>
+              </thead>
+              <tbody>
+                {products.map((product) => (
+                  <tr key={product._id}>
+                    <td className="border p-2 text-center">
+                      {editingId === product._id ? (
+                        <input
+                          type="file"
+                          name="image"
+                          onChange={handleChange}
+                        />
+                      ) : (
+                        <img
+                          src={product.image}
+                          alt={product.name}
+                          className="w-24 h-16 object-cover mx-auto"
+                        />
+                      )}
+                    </td>
+                    <td className="border p-2">
+                      {editingId === product._id ? (
+                        <input
+                          name="name"
+                          value={editedProduct.name}
+                          onChange={handleChange}
+                          className="w-full border p-1"
+                        />
+                      ) : (
+                        product.name
+                      )}
+                    </td>
+                    <td className="border p-2 text-center">
+                      {editingId === product._id ? (
+                        <input
+                          type="number"
+                          name="price"
+                          value={editedProduct.price}
+                          onChange={handleChange}
+                          className="w-full border p-1"
+                        />
+                      ) : (
+                        `${product.price} جنيه`
+                      )}
+                    </td>
+                    <td className="border p-2 text-center">
+                      {editingId === product._id ? (
+                        <input
+                          type="number"
+                          name="discountedPrice"
+                          value={editedProduct.discountedPrice}
+                          onChange={handleChange}
+                          className="w-full border p-1"
+                        />
+                      ) : product.offer?.discountedPrice ? (
+                        `${product.offer.discountedPrice} جنيه`
+                      ) : (
+                        "-"
+                      )}
+                    </td>
+                    <td className="border p-2 text-center">
+                      {editingId === product._id ? (
+                        <input
+                          type="text"
+                          name="categoryId"
+                          value={editedProduct.categoryId}
+                          onChange={handleChange}
+                          className="w-full border p-1"
+                        />
+                      ) : (
+                        product.categoryId
+                      )}
+                    </td>
+                    <td className="border p-2 text-center">
+                      {editingId === product._id ? (
+                        <button
+                          onClick={handleSave}
+                          className="bg-green-600 text-white px-3 py-1 rounded"
+                        >
+                          حفظ
+                        </button>
+                      ) : (
+                        <div className="flex gap-2 justify-center">
+                          <button
+                            onClick={() => handleEditClick(product)}
+                            className="bg-blue-600 text-white px-2 py-1 rounded"
+                          >
+                            تعديل
+                          </button>
+                          <button
+                            onClick={() => handleDelete(product._id)}
+                            className="bg-red-600 text-white px-2 py-1 rounded"
+                          >
+                            حذف
+                          </button>
+                        </div>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </>
       )}
     </div>
   );

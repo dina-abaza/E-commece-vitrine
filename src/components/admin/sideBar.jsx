@@ -39,24 +39,35 @@ const Sidebar = () => {
       >
         <h2 className="text-center text-cyan-400 text-2xl mb-6">🛒 Hello Admin</h2>
         <nav className="flex flex-col gap-4">
+
           <NavLink to="/admin/dashboard" onClick={closeSidebar} className={({ isActive }) => isActive ? "font-bold text-white" : "text-gray-300"}>
             🏠 Home
           </NavLink>
+
           <NavLink to="/admin/products" onClick={closeSidebar} className="text-gray-300 hover:text-white">
             📦 Products
           </NavLink>
+
           <NavLink to="/admin/add" onClick={closeSidebar} className="text-gray-300 hover:text-white">
             ➕ Add Product
           </NavLink>
+
           <NavLink to="/admin/orders" onClick={closeSidebar} className="text-gray-300 hover:text-white">
             🧾 Orders
           </NavLink>
+
           <NavLink to="/admin/users" onClick={closeSidebar} className="text-gray-300 hover:text-white">
             👥 Users
           </NavLink>
+
+          <NavLink to="/admin/messages" onClick={closeSidebar} className="text-gray-300 hover:text-white">
+          📨send Messages
+          </NavLink>
+
           <NavLink to="/admin/settings" onClick={closeSidebar} className="text-gray-300 hover:text-white">
             ⚙️ Settings
           </NavLink>
+
           <NavLink
             to="/admin/login"
             onClick={() => {
@@ -67,6 +78,7 @@ const Sidebar = () => {
           >
             🚪 Logout
           </NavLink>
+          
         </nav>
       </div>
     </>

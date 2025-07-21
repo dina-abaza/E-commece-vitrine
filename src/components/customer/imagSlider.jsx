@@ -10,10 +10,10 @@ const slides = [
     text: (
       <>
         <span className="text-yellow-400">0%</span>
-        <span className="text-white"> مقدم</span>
+        <span className="text-blue-950"> مقدم</span>
         <br />
         <span className="text-yellow-400">0%</span>
-        <span className="text-white"> فوائد</span>
+        <span className="text-blue-950"> فوائد</span>
       </>
     ),
     service: "توصيل مجاني",
@@ -25,10 +25,10 @@ const slides = [
     text: (
       <>
         <span className="text-yellow-400">25%</span>
-        <span className="text-white"> مقدم</span>
+        <span className="text-blue-950"> مقدم</span>
         <br />
         <span className="text-yellow-400">0%</span>
-        <span className="text-white"> فوائد</span>
+        <span className="text-blue-950"> فوائد</span>
       </>
     ),
     service: "توصيل مجاني",
@@ -40,10 +40,10 @@ const slides = [
     text: (
       <>
         <span className="text-yellow-400">  اثني عشر شهر</span>
-        <span className="text-white">  تقسيط</span>
+        <span className="text-blue-950">  تقسيط</span>
         <br />
         <span className="text-yellow-400">0%</span>
-        <span className="text-white"> فوائد</span>
+        <span className="text-blue-950"> فوائد</span>
       </>
     ),
     service: "توصيل مجاني",
@@ -55,10 +55,10 @@ const slides = [
     text: (
       <>
         <span className="text-yellow-400">ستة</span>
-        <span className="text-white"> اشهر تقسيط</span>
+        <span className="text-blue-950"> اشهر تقسيط</span>
         <br />
         <span className="text-yellow-400">0%</span>
-        <span className="text-white"> فوائد</span>
+        <span className="text-blue-950"> فوائد</span>
       </>
     ),
     service: "توصيل مجاني",
@@ -70,10 +70,10 @@ const slides = [
     text: (
       <>
         <span className="text-yellow-400">اثني عشر</span>
-        <span className="text-white"> شهر تقسيط</span>
+        <span className="text-blue-950"> شهر تقسيط</span>
         <br />
         <span className="text-yellow-400">0%</span>
-        <span className="text-white"> فوائد</span>
+        <span className="text-blue-950"> فوائد</span>
       </>
     ),
     service: "توصيل مجاني",
@@ -128,8 +128,8 @@ const ImageSlider = () => {
 
 
       <div
-        className="absolute top-10 right-10 text-white font-bold flex flex-col items-end gap-4"
-        style={{ textShadow: "1px 1px 3px rgba(0,0,0,0.7)" }}
+        className="absolute top-1/2 right-20 text-blue-950 font-bold flex flex-col items-end gap-4"
+  
       >
         <h2 className="text-4xl sm:text-2xl">{slides[current].title}</h2>
 
@@ -142,7 +142,7 @@ const ImageSlider = () => {
 
         <Link
           to="/allProducts"
-          className="bg-amber-300 text-blue-900 px-6 py-2 rounded shadow hover:bg-amber-400 transition sm:px-4 sm:py-1 sm:text-sm"
+          className="bg-yellow-400 text-blue-900 px-6 py-2 rounded shadow  hover:bg-amber-500 transition sm:px-4 sm:py-1 sm:text-sm"
         >
           {slides[current].button}
         </Link>
