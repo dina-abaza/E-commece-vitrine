@@ -54,6 +54,7 @@ export default function Payment() {
           }
         );
 
+
         const checkoutUrl = response.data.url;
         if (checkoutUrl) {
           window.location.href = checkoutUrl;
@@ -62,7 +63,7 @@ export default function Payment() {
         }
       } else {
       
-         await axios.post(
+       await axios.post(
           "https://e-commece-vitrine-api.vercel.app/api/cash-on-delivery",
           {
             cartItems: preparedCartItems,
@@ -72,10 +73,11 @@ export default function Payment() {
               Authorization: `Bearer ${token}`,
             },
           }
-        );
+        );        
+
 
         setSuccessMessage("✅ تم تسجيل طلبك للدفع عند الاستلام. سيتم التواصل معك.");
-      
+        setTimeout(()=>{navigate("/") },2000)    
       }
     } catch (err) {
       console.error("خطأ في الدفع:", err);

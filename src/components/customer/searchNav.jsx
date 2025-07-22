@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { FiShoppingCart, FiUser } from 'react-icons/fi';
 import { Link, useNavigate } from "react-router-dom"; 
 import { MdDashboard } from "react-icons/md";
+import { FiPackage } from "react-icons/fi";
 import useAuthStore from "../../store/customerStore/authStore";
 import SearchAutocomplete from "./searchAutoComplet";
 
@@ -50,14 +51,27 @@ export default function SearchNav() {
             <option value="الانجليزيه">الإنجليزية</option>
           </select>
 
-          {user ? (
-            <button
-              onClick={handleLogout}
-              className="flex items-center text-red-600 font-semibold whitespace-nowrap"
-            >
-              <FiUser className="text-xl mr-1" />
-              <span className="hidden sm:inline">تسجيل الخروج</span>
-            </button>
+      {user ? (
+      <div className="flex justify-center items-center gap-4">
+            
+          <button
+          onClick={handleLogout}
+          className="flex items-center text-red-600 font-semibold text-sm sm:text-base">
+            <FiUser className="text-xl mr-1" />
+            <span className="hidden sm:inline">تسجيل الخروج</span>
+          </button>
+          
+          
+        <Link to="/myOrders">
+          <button className="flex items-center text-yellow-600 font-semibold text-sm sm:text-base">
+            <FiPackage className="text-xl mr-1" />
+            <span>طلباتي</span>
+          </button>
+        </Link>
+        
+      </div>
+           
+
           ) : (
             <Link to="/register" className="flex items-center text-gray-700 whitespace-nowrap">
               <FiUser className="text-xl mr-1" />
