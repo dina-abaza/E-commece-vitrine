@@ -1,49 +1,50 @@
-# 🛋️ متجر الأثاث الإلكتروني - فيترن
 
-فيترن هو متجر إلكتروني متكامل لبيع الأثاث والديكور، يحتوي على واجهة مستخدم حديثة وسلسة لعرض المنتجات، وسلة شراء، وطرق دفع متعددة، بالإضافة إلى لوحة تحكم قوية للإدارة تشمل متابعة الإيرادات وإدارة المنتجات والتواصل مع العملاء.
+# 🛋️ Vitern - Online Furniture Store
 
----
-
-## 💻 التقنيات المستخدمة
-
-### 🧩 الواجهة الأمامية
-- **React.js** – مكتبة لبناء واجهات تفاعلية.
-- **Tailwind CSS** – لتصميم سريع واستجابة ممتازة.
-- **Zustand** – لإدارة الحالة بطريقة بسيطة وفعالة.
-- **Axios** – للتعامل مع واجهات الـ API.
-- **React Toastify** – لعرض إشعارات جذابة.
-
-### 🔧 الواجهة الخلفية
-- **Node.js** + **Express.js** – لبناء الـ API وتنفيذ العمليات الخلفية.
-- **Stripe API** – لمعالجة الدفع الإلكتروني الآمن.
+Vitern is a fully-featured e-commerce application for selling furniture and home décor. It includes a modern and smooth user interface for browsing products, a shopping cart, multiple payment methods, and a powerful admin dashboard for managing revenue, products, and customer communication.
 
 ---
 
-## 🧑‍💼 مميزات لوحة الإدارة
+## 💻 Technologies Used
 
-- 🔐 صفحات محمية لا يمكن الوصول إليها إلا من قِبل المسؤولين.
-- 📈 متابعة الإيرادات والطلبات بشكل دوري.
-- 🛠️ إضافة وتعديل وحذف المنتجات.
-- 💬 إرسال رسائل خاصة للمستخدمين، أو عامة تظهر للجميع.
-- 🧾 عرض تفاصيل الطلبات وحالاتها (معلق - جاري الشحن - تم التوصيل - ملغي...).
+### 🧩 Frontend
+- **React.js** – A library for building interactive user interfaces.
+- **Tailwind CSS** – For fast and responsive design.
+- **Zustand** – For simple and effective state management.
+- **Axios** – For handling API requests.
+- **React Toastify** – To display stylish notifications.
 
----
-
-## 🛍️ مميزات واجهة المستخدم
-
-- 🛏️ تصفح شامل لمنتجات الأثاث (غرف نوم، غرف معيشة، سفره، ديكور...).
-- 🔎 فلترة المنتجات حسب الفئة.
-- 🛒 إضافة المنتجات إلى السلة مع إمكانية الحذف أو التعديل.
-- 💳 الشراء عبر بوابة الدفع Stripe أو عند الاستلام.
-- 📬 استقبال رسائل تنبيه من الإدارة.
-- 📦 متابعة حالة الطلب من لحظة الشراء حتى التوصيل.
-- 📱 واجهات متجاوبة لجميع الأجهزة.
-- 🎞️ حركات انتقال جميلة.
-- 📩 صفحة تواصل مباشر مع إدارة المتجر.
+### 🔧 Backend
+- **Node.js** + **Express.js** – To build APIs and handle backend operations.
+- **Stripe API** – For secure online payment processing.
 
 ---
 
-## 📌 ملاحظات إضافية
+## 🧑‍💼 Admin Dashboard Features
 
-- الكود منظم بشكل يسمح بتوسع المشروع مستقبلًا.
-- يدعم التوسع ليشمل عروض، كوبونات، أو خصومات بسهولة.
+- 🔐 Protected routes accessible only by administrators.
+- 📈 View and track revenue and orders regularly.
+- 🛠️ Add, edit, and delete products.
+- 💬 Send private messages to users, or public messages visible to all.
+- 🧾 View detailed order information and statuses (pending – processing – shipped – delivered – cancelled...).
+
+---
+
+## 🛍️ User Interface Features
+
+- 🛏️ Browse a wide range of furniture products (bedrooms, living rooms, dining, décor...).
+- 🔎 Filter products by category.
+- 🛒 Add products to the cart with options to remove or edit.
+- 💳 Checkout using Stripe or Cash on Delivery.
+- 📬 Receive announcements and messages from the admin.
+- 📦 Track order status from purchase to delivery.
+- 📱 Fully responsive design across all devices.
+- 🎞️ Smooth and elegant animations.
+- 📩 Contact page to reach the store management directly.
+
+---
+
+## 📌 Additional Notes
+
+- The codebase is clean and structured for easy maintenance and scalability.
+- Ready for future features like offers, coupons, and discounts.
