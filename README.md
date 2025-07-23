@@ -1,5 +1,5 @@
 
-# 🛋️ Vitern - Online Furniture Store
+# 🛋️ Vitren - Online Furniture Store
 
 Vitern is a fully-featured e-commerce application for selling furniture and home décor. It includes a modern and smooth user interface for browsing products, a shopping cart, multiple payment methods, and a powerful admin dashboard for managing revenue, products, and customer communication.
 
