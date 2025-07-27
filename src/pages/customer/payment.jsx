@@ -16,6 +16,7 @@ export default function Payment() {
   const [address, setAddress] = useState("");
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState("");
+  const clearCart = useCartStore((state) => state.clearCart);
 
   const totalPrice = cartItems.reduce(
     (sum, item) => sum + item.offer.discountedPrice * item.quantity,
@@ -74,8 +75,8 @@ export default function Payment() {
             },
           }
         );        
-
-
+        
+        clearCart();
         setSuccessMessage("✅ تم تسجيل طلبك للدفع عند الاستلام. سيتم التواصل معك.");
         setTimeout(()=>{navigate("/") },2000)    
       }

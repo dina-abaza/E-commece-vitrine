@@ -1,30 +1,23 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import AdminUseAuthStore from "../../store/adminStore/adminAuthStore";
+import React from "react";
+import UseVerifyAdmin from "../../hooks/useverifyadmin";
+import UseFetchUsers from "../../hooks/useFetchUsers";
 
 export default function UsersPage() {
-  const token = AdminUseAuthStore((state) => state.token);
-  const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(true);
+  UseVerifyAdmin();
 
-  useEffect(() => {
-    async function fetchUsers() {
-      try {
-        const res = await axios.get("https://e-commece-vitrine-api.vercel.app/api/Users");
-        setUsers(res.data.ALL_Users || []);
-      } catch (err) {
-        console.error("Error loading users:", err);
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchUsers();
-  }, [token]);
+  const { users, loading, error } = UseFetchUsers();
 
   if (loading)
     return (
       <p className="p-6 text-center text-lg text-gray-700">
         جاري تحميل المستخدمين...
+      </p>
+    );
+
+  if (error)
+    return (
+      <p className="p-6 text-center text-red-600 text-lg">
+        {error}
       </p>
     );
 

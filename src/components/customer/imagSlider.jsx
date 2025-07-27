@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { FaTruck } from "react-icons/fa";
 import { Link } from "react-router-dom";
@@ -117,7 +116,6 @@ const ImageSlider = () => {
       onMouseLeave={() => setIsPaused(false)}
       style={{ height: "600px" }}
     >
-      
       <img
         src={slides[current].image}
         alt={slides[current].title}
@@ -126,29 +124,28 @@ const ImageSlider = () => {
         }`}
       />
 
-
-      <div
-        className="absolute top-1/2 right-20 text-blue-950 font-bold flex flex-col items-end gap-4"
   
+      <div
+        className="absolute right-5 md:right-20 top-1/3 md:top-1/2 flex flex-col items-end gap-4 text-sm md:text-2xl text-blue-950 font-bold"
       >
-        <h2 className="text-4xl sm:text-2xl">{slides[current].title}</h2>
+        <h2 className="text-lg md:text-4xl">{slides[current].title}</h2>
 
-        <p className="text-3xl sm:text-lg">{slides[current].text}</p>
+        <p className="text-base md:text-3xl">{slides[current].text}</p>
 
-        <div className="flex items-center gap-2 text-3xl sm:text-lg justify-end sm:justify-center">
+        <div className="flex items-center gap-2 text-base md:text-3xl justify-end">
           <p>{slides[current].service}</p>
-          <FaTruck className="text-yellow-400 w-8 h-8" />
+          <FaTruck className="text-yellow-400 w-6 h-6 md:w-8 md:h-8" />
         </div>
 
         <Link
           to="/allProducts"
-          className="bg-yellow-400 text-blue-900 px-6 py-2 rounded shadow  hover:bg-amber-500 transition sm:px-4 sm:py-1 sm:text-sm"
+          className="bg-yellow-400 text-blue-900 px-4 py-1 md:px-6 md:py-2 rounded shadow hover:bg-amber-500 transition text-xs md:text-sm"
         >
           {slides[current].button}
         </Link>
       </div>
 
-    
+      
       <button
         onClick={prevSlide}
         className="absolute top-1/2 left-4 -translate-y-1/2 text-3xl text-white hover:text-yellow-400 transition"
@@ -156,7 +153,6 @@ const ImageSlider = () => {
       >
         ❮
       </button>
-
       <button
         onClick={nextSlide}
         className="absolute top-1/2 right-4 -translate-y-1/2 text-3xl text-white hover:text-yellow-400 transition"

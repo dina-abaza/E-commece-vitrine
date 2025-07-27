@@ -1,34 +1,18 @@
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
+import UseVerifyAdmin from "../../hooks/useverifyadmin";
+import UseFetchProducts from "../../hooks/useFetchProducts";
 import AdminUseAuthStore from "../../store/adminStore/adminAuthStore";
 
 export default function AdminProducts() {
-  const token = AdminUseAuthStore((state) => state.token);
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+UseVerifyAdmin()
+
   const [editingId, setEditingId] = useState(null);
   const [editedProduct, setEditedProduct] = useState({});
+  const {error,loading,products,setProducts}= UseFetchProducts()
+  const token = AdminUseAuthStore((state) => state.token); 
 
-  useEffect(() => {
-    async function fetchProducts() {
-      try {
-        const res = await axios.get("https://e-commece-vitrine-api.vercel.app/api/products", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setProducts(res.data);
-        setError(null);
-      } catch (err) {
-        setError("فشل في تحميل المنتجات",err);
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchProducts();
-  }, [token]);
 
   const handleEditClick = (product) => {
     setEditingId(product._id);
@@ -86,7 +70,8 @@ export default function AdminProducts() {
       setEditingId(null);
       setEditedProduct({});
     } catch (err) {
-      alert("حدث خطأ أثناء تحديث المنتج",err);
+      alert("حدث خطأ أثناء تحديث المنتج: " + (err?.response?.data?.message || err.message));
+
     }
   };
 
@@ -103,7 +88,8 @@ export default function AdminProducts() {
       );
       setProducts((prev) => prev.filter((p) => p._id !== id));
     } catch (err) {
-      alert("فشل في حذف المنتج",err);
+            alert("فشل في حذف المنتج " + (err?.response?.data?.message || err.message));
+
     }
   };
 
@@ -117,7 +103,7 @@ export default function AdminProducts() {
         <p className="text-red-500">{error}</p>
       ) : (
         <>
-          {/* ✅ موبايل: بطاقات */}
+        
           <div className="md:hidden space-y-4">
             {products.map((product) => (
               <div key={product._id} className="border p-4 rounded shadow">
@@ -223,7 +209,7 @@ export default function AdminProducts() {
             ))}
           </div>
 
-          {/* ✅ تابلت وكمبيوتر: جدول */}
+          
           <div className="hidden md:block overflow-auto mt-6">
             <table className="w-full border text-sm">
               <thead className="bg-gray-100">

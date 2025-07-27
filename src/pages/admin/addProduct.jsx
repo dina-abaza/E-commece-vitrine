@@ -1,22 +1,21 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import AdminUseAuthStore from "../../store/adminStore/adminAuthStore";
+import UseVerifyAdmin from "../../hooks/useverifyadmin";
 
 export default function AddProduct() {
-  const token = AdminUseAuthStore((state) => state.token);
+UseVerifyAdmin()
 
+  const token = AdminUseAuthStore((state) => state.token);
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [categoryId, setCategoryId] = useState("");
   const [imageFile, setImageFile] = useState(null);
-
-  // حالة الخصم
   const [offer, setOffer] = useState({
     isActive: false,
     discountPercent: 0,
     discountedPrice: 0,
   });
-
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
@@ -38,13 +37,13 @@ export default function AddProduct() {
     if (token) fetchCategories();
   }, [token]);
 
-  // دالة لحساب السعر بعد الخصم أو تحديث نسبة الخصم بناءً على السعر بعد الخصم
+
   function updateDiscountPercent(value) {
     let discount = Number(value);
     if (discount < 0) discount = 0;
     if (discount > 100) discount = 100;
 
-    // نحسب السعر بعد الخصم
+    
     const discounted = price
       ? (price - (price * discount) / 100).toFixed(2)
       : 0;
@@ -60,7 +59,7 @@ export default function AddProduct() {
     let discountedPrice = Number(value);
     if (discountedPrice < 0) discountedPrice = 0;
 
-    // نحسب نسبة الخصم بناءً على السعر بعد الخصم
+  
     const discountPercent = price
       ? ((1 - discountedPrice / price) * 100).toFixed(2)
       : 0;
@@ -98,7 +97,7 @@ export default function AddProduct() {
       formData.append("categoryId", categoryId);
       formData.append("image", imageFile);
 
-      // إذا تم تفعيل الخصم فقط نضيفه
+    
       if (offer.isActive) {
         formData.append("offer", JSON.stringify({
           isActive: true,
@@ -157,7 +156,7 @@ export default function AddProduct() {
           value={price}
           onChange={(e) => {
             setPrice(e.target.value);
-            // لما السعر يتغير نحسب الخصم او نحدث السعر بعد الخصم
+            
             if (offer.isActive) {
               updateDiscountPercent(offer.discountPercent);
             }
@@ -189,7 +188,7 @@ export default function AddProduct() {
           className="bg-gray-100 rounded-md px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-400 transition"
         />
 
-        {/* تفعيل خصم */}
+        
         <label className="flex items-center gap-3 mt-3">
           <input
             type="checkbox"
@@ -199,7 +198,7 @@ export default function AddProduct() {
           <span>تفعيل الخصم</span>
         </label>
 
-        {/* إذا الخصم مفعل، تظهر الحقول */}
+        
         {offer.isActive && (
           <>
             <input

@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import AdminUseAuthStore from "../../store/adminStore/adminAuthStore";
 import { FaBoxOpen, FaCheckCircle, FaTimesCircle, FaUndoAlt, FaHourglassHalf, FaClipboardCheck, FaTruck } from "react-icons/fa";
+import UseVerifyAdmin from "../../hooks/useverifyadmin";
+import UseFetchOrders from "../../hooks/useFetchOrders";
+import UseFetchUsers from "../../hooks/useFetchUsers";
 
 const statusIcons = {
   pending: <FaHourglassHalf className="text-yellow-500" />,
@@ -21,25 +24,13 @@ const allStatuses = [
 ];
 
 export default function AdminOrders() {
-  const [orders, setOrders] = useState([]);
-  const [users, setUsers] = useState([]);
+UseVerifyAdmin()
+
   const [userId, setUserId] = useState("");
   const [status, setStatus] = useState("");
   const token = AdminUseAuthStore((state) => state.token);
-
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const res = await axios.get("https://e-commece-vitrine-api.vercel.app/api/Users", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        setUsers(res.data.ALL_Users);
-      } catch (err) {
-        console.error("❌ خطأ في جلب المستخدمين", err);
-      }
-    };
-    fetchUsers();
-  }, [token]);
+  const {loading,error,orders,setOrders}=UseFetchOrders()
+  const {users}= UseFetchUsers()
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -91,6 +82,10 @@ export default function AdminOrders() {
 
   return (
     <div className="p-4 max-w-6xl mx-auto mt-10">
+
+       {loading && <p className="text-yellow-600 text-center">جاري التحميل...</p>}
+      {error && <p className="text-red-600 text-center">{error}</p>}
+
       <h1 className="text-2xl font-bold text-blue-900 mb-8">لوحة الطلبات</h1>
 
       <div className="flex flex-wrap gap-4 mb-8">
@@ -110,8 +105,8 @@ export default function AdminOrders() {
           ))}
         </select>
       </div>
-
-      {!orders.length ? (
+      
+      {!Array.isArray(orders) || !orders.length ? (
         <p className="text-gray-600">لا توجد طلبات.</p>
       ) : (
         <div className="space-y-10">

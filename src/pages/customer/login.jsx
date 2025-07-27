@@ -7,8 +7,6 @@ import useAuthStore from "../../store/customerStore/authStore";
 export default function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
   const navigate = useNavigate();
-
-  // جلب دوال التحديث من Zustand
   const setUser = useAuthStore((state) => state.setUser);
   const setToken = useAuthStore((state) => state.setToken);
 

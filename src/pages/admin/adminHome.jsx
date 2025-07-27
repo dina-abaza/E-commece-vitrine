@@ -1,67 +1,40 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Card from "../../components/admin/card";
-import axios from "axios";
 import AdminUseAuthStore from "../../store/adminStore/adminAuthStore";
+import UseVerifyAdmin from "../../hooks/useverifyadmin";
+import UseFetchUsers from "../../hooks/useFetchUsers";
+import UseFetchOrders from "../../hooks/useFetchOrders";
+import UseFetchProducts from "../../hooks/useFetchProducts";
 
 export default function HomeDashboard() {
-  const [stats, setStats] = useState({
-    products: 0,
-    users: 0,
-    orders: 0,
-    revenue: 0,
-  });
-  const [users, setUsers] = useState([]);
-  const [recentOrders, setRecentOrders] = useState([]);
-  const [loading, setLoading] = useState(true);
+  UseVerifyAdmin();
 
   const token = AdminUseAuthStore((state) => state.token);
 
-  useEffect(() => {
-    async function fetchDatas() {
-      try {
-        const [usersRes, productsRes, ordersRes] = await Promise.all([
-          axios.get("https://e-commece-vitrine-api.vercel.app/api/Users", {
-            headers: { Authorization: `Bearer ${token}` },
-          }),
-          axios.get("https://e-commece-vitrine-api.vercel.app/api/products", {
-            headers: { Authorization: `Bearer ${token}` },
-          }),
-          axios.get("https://e-commece-vitrine-api.vercel.app/api/admin/orders", {
-            headers: { Authorization: `Bearer ${token}` },
-          }),
-        ]);
+  const { users, loading: loadingUsers } = UseFetchUsers(token);
+  const { orders, loading: loadingOrders } = UseFetchOrders(token);
+  const { products, loading: loadingProducts } = UseFetchProducts(token);
 
-        const users = usersRes.data.ALL_Users || [];
-        const products = productsRes.data || [];
-        const orders = ordersRes.data.orders || [];
-        setUsers(users);
+  const loading = loadingUsers || loadingProducts || loadingOrders;
 
-        setRecentOrders([...orders].reverse().slice(0, 5));
+  const recentOrders = [...orders].reverse().slice(0, 5);
 
-        const revenue = orders.reduce((total, order) => {
-          const orderTotal = order.products?.reduce((sum, p) => {
-            const price = p.productId?.price || 0;
-            const quantity = p.quantity || 0;
-            return sum + price * quantity;
-          }, 0) || 0;
-          return total + orderTotal;
-        }, 0);
+  const revenue = orders.reduce((total, order) => {
+    const orderTotal =
+      order.products?.reduce((sum, p) => {
+        const price = p.productId?.price || 0;
+        const quantity = p.quantity || 0;
+        return sum + price * quantity;
+      }, 0) || 0;
+    return total + orderTotal;
+  }, 0);
 
-        setStats({
-          users: users.length,
-          products: products.length,
-          orders: orders.length,
-          revenue: revenue.toFixed(2),
-        });
-      } catch (err) {
-        console.error("❌ خطأ في تحميل البيانات:", err);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchDatas();
-  }, [token]);
+  const stats = {
+    users: users.length,
+    products: products.length,
+    orders: orders.length,
+    revenue: revenue.toFixed(2),
+  };
 
   const getUserName = (id) => {
     const user = users.find((u) => u._id === id);

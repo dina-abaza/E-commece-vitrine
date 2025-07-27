@@ -1,17 +1,24 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import useAuthStore from "../../store/customerStore/authStore";
+import UseVerifyAdmin from "../../hooks/useverifyadmin";
 
 export default function Sendmessages() {
+UseVerifyAdmin()
+
   const [users, setUsers] = useState([]);
   const [title, setTitle] = useState("");
   const [content, setcontent] = useState("");
   const [selectUser, setSelectUser] = useState("all");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const token= useAuthStore((state)=>state.token)
 
   useEffect(() => {
     async function fetchUsers() {
       try {
         const res = await axios.get("https://e-commece-vitrine-api.vercel.app/api/users");
-        setUsers(res.data?.users || []);
+        setUsers(res.data.ALL_Users || []);
       } catch (err) {
         console.error("فشل في تحميل البيانات", err);
       }
@@ -22,22 +29,31 @@ export default function Sendmessages() {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    const payload = {
-      title,
-      content,
-      forUser: selectUser === "all" ? null : selectUser,
-      forAll: selectUser === "all",
-    };
+ const payload = {
+  title,
+  content,
+  forUser: selectUser === "all" ? null : selectUser,
+  forAll: selectUser === "all"
+};
+
 
     try {
-      await axios.post("https://e-commece-vitrine-api.vercel.app/api/messages", payload);
+      console.log("🚀 Sending Payload:", payload);
+      console.log(token)
+     await axios.post("https://e-commece-vitrine-api.vercel.app/api/messages", payload, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+  },
+});
       setTitle("");
       setcontent("");
       setSelectUser("all");
       alert("تم إرسال الرسالة بنجاح");
     } catch (err) {
-      console.error("فشل الارسال", err);
-      alert("حدث خطأ أثناء إرسال الرسالة");
+       const errorMsg =
+       err.response?.data?.message || "حدث خطأ أثناء إرسال الرسالة";
+       setErrorMessage(errorMsg);
+       console.log(errorMessage)
     }
   }
 

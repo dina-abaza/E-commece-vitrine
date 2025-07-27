@@ -21,7 +21,6 @@ import OrdersPage from './pages/admin/ordersPage';
 import AdminSettings from './pages/admin/setting';
 import CustomerLayout from './layout/customerLayout';
 import AdminLayout from './layout/adminLayout';
-import AdminRoute from './routes/adminRoute';
 import AddProduct from './pages/admin/addProduct';
 import AdminProducts from './pages/admin/adminProducts';
 import OffersPage from './pages/customer/offersPage';
@@ -53,76 +52,52 @@ function App() {
         </Route>
 
   
-        <Route path="/admin" element={<AdminLayout />}>
-          <Route path="login" element={<AdminLogin />} />
+      <Route path="/admin" element={<AdminLayout />}>
+        <Route
+           path="login"
+           element={
+           <AdminLogin />
+            } />
 
-          <Route
+        <Route
             path="dashboard"
             element={
-              
-                  <HomeDashboard />
-              
-              
-            
+            <HomeDashboard />
             }
           />
-          <Route
+        <Route
             path="users"
             element={
-            <AdminRoute>
-                <UsersPage />
-            </AdminRoute>
-            
-               
-            
+            <UsersPage />
             }
           />
-          <Route
+        <Route
             path="orders"
             element={
-            
-                 <OrdersPage />
-              
-          
-               
-              
+            <OrdersPage />
             }
           />
-          <Route
+        <Route
             path="settings"
             element={
-            <AdminRoute>
-                <AdminSettings />
-            </AdminRoute>
-              
-            
+            <AdminSettings />
             }
           />
 
-          <Route path="add"
+        <Route path="add"
           element={
-        <AdminRoute>
           <AddProduct/>
-        </AdminRoute>
-             
-            
           }
           />
 
-          <Route path="products"
+        <Route path="products"
           element={
-            <AdminRoute>
-               <AdminProducts/>
-            </AdminRoute>
-             
-        
+          <AdminProducts/>
           }/>
 
-          <Route path="messages"
+        <Route path="messages"
           element={
-            <AdminRoute>
-              <Sendmessages/>
-            </AdminRoute>
+          <Sendmessages/>
           }
           />
 

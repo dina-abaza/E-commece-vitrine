@@ -25,8 +25,6 @@ export default function Register() {
 
         setToken(register.data.accessToken);
         setUser(register.data.user);
-
-    
         navigate("/login");
       }
     } catch (error) {
@@ -36,7 +34,8 @@ export default function Register() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="animate-slideInFromLeft flex flex-col gap-4 w-1/3 mx-auto m-10">
+    <form onSubmit={handleSubmit} className="animate-slideInFromLeft flex flex-col gap-4 mx-auto m-10
+                 w-full max-w-md p-2 sm:w-1/2">
       <h2 className="text-2xl font-bold text-center">إنشاء حساب</h2>
 
       <input
