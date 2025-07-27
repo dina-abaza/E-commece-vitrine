@@ -81,7 +81,7 @@ UseVerifyAdmin()
   };
 
   return (
-    <div className="p-4 max-w-6xl mx-auto mt-10">
+    <div className="animate-slideInFromLeft p-4 max-w-6xl mx-auto mt-10">
 
        {loading && <p className="text-yellow-600 text-center">جاري التحميل...</p>}
       {error && <p className="text-red-600 text-center">{error}</p>}

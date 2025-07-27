@@ -60,7 +60,7 @@ UseVerifyAdmin()
   return (
     <form
       onSubmit={handleSubmit}
-      className="mt-20 flex flex-col w-full max-w-3xl h-auto bg-white shadow-2xl justify-center gap-y-5 p-10 mx-auto"
+      className="animate-slideInFromLeft mt-20 flex flex-col w-full max-w-3xl h-auto bg-white shadow-2xl justify-center gap-y-5 p-10 mx-auto"
     >
       <input
         type="text"
@@ -98,7 +98,8 @@ UseVerifyAdmin()
 
       <button
         type="submit"
-        className="bg-blue-300 text-white shadow-md px-5 py-2 rounded w-1/3 mx-auto hover:bg-blue-400 transition duration-300 font-bold "
+          className="bg-blue-300 text-white shadow-md px-5 py-2 rounded w-full sm:w-1/3 mx-auto hover:bg-blue-400 transition duration-300 font-bold text-center"
+          
       >
         🚀 إرسال الرسالة
       </button>

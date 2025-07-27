@@ -14,7 +14,7 @@ useEffect(()=>{
         }
         catch(error){
         console.error("Admin verification failed:", error);
-        navigate("/admin/login"); 
+        navigate("/admin/dashboard"); 
 
         }
     }

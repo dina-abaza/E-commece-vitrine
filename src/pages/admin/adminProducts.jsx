@@ -94,7 +94,7 @@ UseVerifyAdmin()
   };
 
   return (
-    <div className="max-w-6xl mx-auto mt-10 p-4 bg-white shadow rounded">
+    <div className="animate-slideInFromLeft max-w-6xl mx-auto mt-10 p-4 bg-white shadow rounded">
       <h2 className="text-xl font-bold text-center mb-6">إدارة المنتجات</h2>
 
       {loading ? (

@@ -136,7 +136,7 @@ UseVerifyAdmin()
   }
 
   return (
-    <div className="animate-slideInFromLeft w-full max-w-3xl mx-auto bg-white shadow rounded p-6">
+    <div className="animate-slideInFromLeft w-full max-w-3xl mx-auto bg-white shadow rounded p-6 mt-10">
       <h2 className="text-2xl font-bold mb-6 text-gray-800">إضافة منتج جديد</h2>
       <form onSubmit={handleSubmit} className="flex flex-col gap-5">
         <input
