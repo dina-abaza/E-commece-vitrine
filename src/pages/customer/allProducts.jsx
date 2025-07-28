@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import useCartStore from "../../store/customerStore/cartStore";
+import { toast } from "react-toastify";
 
 export default function AllProducts() {
   const [products, setProducts] = useState([]);
@@ -75,6 +76,7 @@ export default function AllProducts() {
     <button
       onClick={() => {
         console.log("Adding product to cart:", product);
+        toast.success("✅ تم إضافة المنتج إلى السلة");
         addToCart(product);
       }}
       className="text-yellow-700 font-bold hover:text-yellow-500 transition duration-300"

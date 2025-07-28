@@ -42,8 +42,9 @@ UseVerifyAdmin()
       console.log(token)
      await axios.post("https://e-commece-vitrine-api.vercel.app/api/messages", payload, {
       headers: {
-        Authorization: `Bearer ${token}`,
-  },
+        Authorization: `Bearer ${token}`,},
+        withCredentials:true
+  
 });
       setTitle("");
       setcontent("");
@@ -98,8 +99,7 @@ UseVerifyAdmin()
 
       <button
         type="submit"
-          className="bg-blue-300 text-white shadow-md px-5 py-2 rounded w-full sm:w-1/3 mx-auto hover:bg-blue-400 transition duration-300 font-bold text-center"
-          
+          className="bg-blue-300 text-white shadow-md px-5 py-2 rounded w-full sm:w-1/3 mx-auto hover:bg-blue-400 transition duration-300 font-bold text-center" 
       >
         🚀 إرسال الرسالة
       </button>

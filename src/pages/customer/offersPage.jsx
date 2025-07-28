@@ -2,11 +2,13 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import axios from "axios";
+import { toast } from "react-toastify";
+import useCartStore from "../../store/customerStore/cartStore";
 
 function OffersPage() {
   const [searchParams] = useSearchParams();
   const [products, setProducts] = useState([]);
-
+  const addToCart =useCartStore((state)=>state.addToCart)
   const categorySlug = searchParams.get("categorySlug");
   const maxPrice = searchParams.get("maxPrice");
 
@@ -44,6 +46,16 @@ function OffersPage() {
               <span className="text-gray-500 line-through">{product.price}</span>{" "}
               <span className="text-green-600 font-bold">{product.offer.discountedPrice}</span>
             </p>
+            <button
+                  onClick={() => {
+                    console.log("Adding product to cart:", product);
+                    toast.success("✅ تم إضافة المنتج إلى السلة");
+                    addToCart(product);
+                  }}
+                  className="text-yellow-700 font-bold hover:text-yellow-500 transition duration-300"
+                >
+                  أضف إلى السلة
+                </button>
           </div>
         ))}
       </div>

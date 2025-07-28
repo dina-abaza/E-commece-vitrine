@@ -17,8 +17,8 @@ const Sidebar = () => {
       await axios.post("https://e-commece-vitrine-api.vercel.app/api/logout", {}, {
         withCredentials: true
       });
+       navigate("/admin/login");
       localStorage.removeItem("isAdmin");
-      navigate("/admin/login");
     } catch (error) {
       console.error("Logout failed:", error);
     }

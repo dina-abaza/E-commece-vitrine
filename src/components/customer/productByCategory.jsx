@@ -3,6 +3,7 @@ import axios from "axios";
 import useCartStore from "../../store/customerStore/cartStore";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function ProductByCategory() {
   const {id}=useParams()
@@ -71,8 +72,10 @@ export default function ProductByCategory() {
     <p className="text-gray-700 font-bold mb-3">{product.price} جنيه</p>
     <button
       onClick={() => {
+          toast.success("✅ تم إضافة المنتج إلى السلة");
         console.log("Adding product to cart:", product);
         addToCart(product);
+
       }}
       className="text-yellow-700 font-bold hover:text-yellow-500 transition duration-300"
     >

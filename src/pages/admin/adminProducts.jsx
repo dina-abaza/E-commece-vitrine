@@ -57,8 +57,9 @@ UseVerifyAdmin()
         formData,
         {
           headers: {
-            Authorization: `Bearer ${token}`,
-          },
+            Authorization: `Bearer ${token}`
+          },  withCredentials: true,
+
         }
       );
 
@@ -82,8 +83,10 @@ UseVerifyAdmin()
         `https://e-commece-vitrine-api.vercel.app/api/deleteproduct/${id}`,
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${token}`
           },
+            withCredentials: true,
+
         }
       );
       setProducts((prev) => prev.filter((p) => p._id !== id));

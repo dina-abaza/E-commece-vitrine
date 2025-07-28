@@ -1,6 +1,8 @@
 
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Home from './pages/customer/home';
 import About from './pages/customer/about';
 import ContactForm from './pages/customer/contact';
@@ -30,6 +32,8 @@ import MyOrders from './pages/customer/myOrders';
 function App() {
   return (
     <div className="flex flex-col min-h-screen">
+       <ToastContainer position="top-right" autoClose={3000} />
+
       <Routes>
 
   

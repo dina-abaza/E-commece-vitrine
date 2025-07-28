@@ -17,8 +17,8 @@ export default function AdminMessagesWidget() {
     async function fetchMessages() {
       try {
         const headers = {};
-        if (user?.token) {
-          headers.Authorization = `Bearer ${user.token}`;
+        if (user?.accesstoken) {
+          headers.Authorization = `Bearer ${user.accesstoken}`;
         }
         const res = await axios.get(
           "https://e-commece-vitrine-api.vercel.app/api/Get_messages",
