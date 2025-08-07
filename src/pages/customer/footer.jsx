@@ -35,12 +35,12 @@ export default function Footer() {
 
         <div className="flex-1 flex flex-col gap-2 text-right">
           <p><span className="text-yellow-500 font-bold">التجمع الخامس:</span> محور محمد نجيب</p>
-          <p><span className="text-yellow-500 font-bold">الشيخ زايد:</span> بجوار مول مزار - شارع البستان - الحي التاسع</p>
-          <p><span className="text-yellow-500 font-bold">مدينة نصر:</span> 9 عمارات مقاتلي رمضان - شارع حسن المأمون - قبل النادى الأهلى</p>
+          <p><span className="text-yellow-500 font-bold">الشيخ زايد:</span> بجوار مول البستان - شارع البستان - الحي التاسع</p>
+          <p><span className="text-yellow-500 font-bold">مدينة نصر:</span> 9 عمارات مقاتلي رمضان - شارع حسن صبري - بعد النادى الأهلى</p>
           <p className="font-bold">
             <a href="tel:+01120210077" className="hover:text-blue-600 transition duration-200">01120210077</a>
           </p>
-          <p className="text-sm">رقم التسجيل الضريبي: 123-456-789</p>
+          <p className="text-sm">رقم التسجيل الضريبي: 143-426-109</p>
         </div>
       </div>
 
