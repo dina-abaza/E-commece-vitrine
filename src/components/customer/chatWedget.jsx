@@ -48,7 +48,7 @@ export default function AdminMessagesWidget() {
       return;
     }
     setOpen(true);
-    setHasNew(false);
+    setHasNew(true);
   };
 
   const handleDeleteMessage = async (id, isPublic) => {
@@ -58,6 +58,7 @@ export default function AdminMessagesWidget() {
       position: "top-right",
       autoClose: 2000,
     });
+
   } else {
     try {
       const headers = {};

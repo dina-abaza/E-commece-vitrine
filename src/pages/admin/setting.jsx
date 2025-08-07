@@ -54,7 +54,7 @@ export default function AdminSettings() {
     setMessageRole("");
     try {
       await axios.put(
-        `https://e-commece-vitrine-api.vercel.app/api/admin/update-role/${selectedId}`,
+        `https://e-commece-vitrine-api.vercel.app/api/update-role/${selectedId}`,
         { newRole: selectRole },
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -63,6 +63,8 @@ export default function AdminSettings() {
       );
 
       setMessageRole("تم تحديث الدور بنجاح.");
+      setSelectedId('')
+      setSelectRole('')
     } catch (err) {
       console.error("Error:", err.response?.data || err.message);
 
@@ -160,7 +162,7 @@ export default function AdminSettings() {
             {loadingRole ? "جاري التحديث..." : "تحديث الدور"}
           </button>
 
-          {messageRole && <p className="text-sm mt-2 text-gray-600">{messageRole}</p>}
+          {messageRole && <p className="text-lg mt-2 text-green-600">{messageRole}</p>}
         </div>
 
       </div>
