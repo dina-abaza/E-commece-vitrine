@@ -9,7 +9,6 @@ import SearchAutocomplete from "./searchAutoComplet";
 import useCartStore from "../../store/customerStore/cartStore";
 
 export default function SearchNav() {
-  const [lang, setLang] = useState('العربيه');
   const user = useAuthStore((state) => state.user);
   const logout = useAuthStore((state) => state.logout);
    const cartItems = useCartStore((state) => state.cartItems);
@@ -47,15 +46,6 @@ export default function SearchNav() {
         </div>
 
         <div className="flex items-center gap-6 md:gap-10 justify-center md:justify-end flex-wrap sm:flex-nowrap">
-          
-          <select
-            value={lang}
-            onChange={(e) => setLang(e.target.value)}
-            className="p-2 border border-gray-300 rounded-md text-gray-700"
-          >
-            <option value="العربيه">العربية</option>
-            <option value="الانجليزيه">الإنجليزية</option>
-          </select>
 
       {user ? (
       <div className="flex justify-center items-center gap-4">
@@ -63,7 +53,7 @@ export default function SearchNav() {
           <button
           onClick={handleLogout}
           className="flex items-center text-red-600 font-semibold text-sm sm:text-base">
-            <FiUser className="text-xl mr-1" />
+            <FiUser className="text-2xl mr-1" />
             <span className="hidden sm:inline">تسجيل الخروج</span>
           </button>
           
