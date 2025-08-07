@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import useCartStore from "../../store/customerStore/cartStore";
+import { toast } from "react-toastify";
 
 export default function ProductDetails() {
   const { id } = useParams();
@@ -38,7 +39,7 @@ export default function ProductDetails() {
 
   const handleAddToCart = () => {
     if (!color) {
-      alert("من فضلك اختر اللون أولاً");
+      toast.info("من فضلك اختر اللون أولاً");
       return;
     }
     addToCart({
@@ -46,7 +47,8 @@ export default function ProductDetails() {
       color,
       quantity,
     });
-    alert("تمت إضافة المنتج للسلة!");
+    toast.success("✅ تم إضافة المنتج إلى السلة");
+    
   };
 
   if (loading) return <p>جاري التحميل...</p>;

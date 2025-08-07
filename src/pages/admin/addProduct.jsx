@@ -27,7 +27,9 @@ UseVerifyAdmin()
           "https://e-commece-vitrine-api.vercel.app/api/categories",
           {
             headers: { Authorization: `Bearer ${token}` },
+             withCredentials: true
           }
+
         );
         setCategories(res.data || []);
       } catch (error) {
@@ -118,6 +120,8 @@ UseVerifyAdmin()
             Authorization: `Bearer ${token}`,
             "Content-Type": "multipart/form-data",
           },
+           withCredentials: true
+
         }
       );
 

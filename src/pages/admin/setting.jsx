@@ -55,15 +55,17 @@ export default function AdminSettings() {
     try {
       await axios.put(
         `https://e-commece-vitrine-api.vercel.app/api/admin/update-role/${selectedId}`,
-        { role: selectRole },
+        { newRole: selectRole },
         {
           headers: { Authorization: `Bearer ${token}` },
           withCredentials: true,
         }
       );
+
       setMessageRole("تم تحديث الدور بنجاح.");
     } catch (err) {
-      console.error(err);
+      console.error("Error:", err.response?.data || err.message);
+
       setMessageRole("حدث خطأ أثناء تحديث الدور.");
     } finally {
       setLoadingRole(false);

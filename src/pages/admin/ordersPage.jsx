@@ -41,6 +41,7 @@ UseVerifyAdmin()
 
         const res = await axios.get(`https://e-commece-vitrine-api.vercel.app/api/admin/orders?${query.toString()}`, {
           headers: { Authorization: `Bearer ${token}` },
+          withCredentials:true
         });
         setOrders(res.data.orders || []);
       } catch (err) {

@@ -6,11 +6,17 @@ import { MdDashboard } from "react-icons/md";
 import { FiPackage } from "react-icons/fi";
 import useAuthStore from "../../store/customerStore/authStore";
 import SearchAutocomplete from "./searchAutoComplet";
+import useCartStore from "../../store/customerStore/cartStore";
 
 export default function SearchNav() {
   const [lang, setLang] = useState('العربيه');
   const user = useAuthStore((state) => state.user);
   const logout = useAuthStore((state) => state.logout);
+   const cartItems = useCartStore((state) => state.cartItems);
+  const totalItems = cartItems?.length
+  ? cartItems.reduce((acc, item) => acc + item.quantity, 0)
+  : 0;
+
   const navigate = useNavigate();
 
   function handleLogout() {
@@ -79,8 +85,13 @@ export default function SearchNav() {
             </Link>
           )}
 
-          <Link to="/cart" className="text-gray-700 text-2xl">
+          <Link to="/cart" className="text-gray-700 text-2xl relative">
             <FiShoppingCart />
+              {totalItems > 0 && (
+                    <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
+                      {totalItems}
+                      </span>
+                   )}
           </Link>
         </div>
       </div>
