@@ -15,23 +15,23 @@ export default function Footer() {
           <a href="/exhibitions" className="hover:text-blue-600 transition duration-200">المعارض</a>
         </div>
 
-        <div className="flex-1 flex flex-col items-center gap-4">
-          <h2 className="text-lg font-semibold">Contact Me</h2>
-          <div className="flex gap-10">
-            <a href="https://www.facebook.com/yourpage" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-              <FaFacebookF className="text-2xl text-blue-800 hover:text-blue-600 transition duration-200" />
-            </a>
-            <a href="https://wa.me/01120210077" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
-              <FaWhatsapp className="text-2xl text-green-600 hover:text-green-500 transition duration-200" />
-            </a>
-            <a href="https://www.instagram.com/yourpage" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-              <FaInstagram className="text-2xl text-pink-600 hover:text-pink-500 transition duration-200" />
-            </a>
-            <a href="https://twitter.com/yourpage" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
-              <FaTwitter className="text-2xl text-sky-500 hover:text-sky-400 transition duration-200" />
-            </a>
-          </div>
-        </div>
+       <div className="flex-1 flex flex-col items-center gap-4">
+      <h2 className="text-lg font-semibold">Contact Me</h2>
+      <div className="flex gap-10">
+        <a href="https://www.facebook.com/yourpage" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+          <FaFacebookF className="text-2xl text-blue-800 hover:text-blue-600 hover:scale-150 transition-all duration-200 icon-spin-1" />
+        </a>
+        <a href="https://wa.me/01120210077" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+          <FaWhatsapp className="text-2xl text-green-600 hover:text-green-500 hover:scale-150 transition-all duration-200 icon-spin-2" />
+        </a>
+        <a href="https://www.instagram.com/yourpage" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+          <FaInstagram className="text-2xl text-pink-600 hover:text-pink-500 hover:scale-150 transition-all duration-200 icon-spin-3" />
+        </a>
+        <a href="https://twitter.com/yourpage" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+          <FaTwitter className="text-2xl text-sky-500 hover:text-sky-400 hover:scale-150 transition-all duration-200 icon-spin-4" />
+        </a>
+      </div>
+    </div>
 
         <div className="flex-1 flex flex-col gap-2 text-right">
           <p><span className="text-yellow-500 font-bold">التجمع الخامس:</span> محور محمد نجيب</p>
