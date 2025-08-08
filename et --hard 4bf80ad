@@ -1,0 +1,27 @@
+[33mf929558[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m HEAD@{0}: reset: moving to HEAD~1
+[33me9862fa[m HEAD@{1}: reset: moving to HEAD~1
+[33m4bf80ad[m HEAD@{2}: commit: add style
+[33me9862fa[m HEAD@{3}: commit: edit
+[33mf929558[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m HEAD@{4}: commit: edit
+[33m13ebc00[m HEAD@{5}: commit: delete state
+[33m1843c6e[m HEAD@{6}: commit: update
+[33m53e399b[m HEAD@{7}: commit: update adress in footer
+[33mc2ef148[m HEAD@{8}: commit: add vercel.json file
+[33m8d098e2[m HEAD@{9}: commit: finish
+[33ma01bba7[m HEAD@{10}: commit: add styles
+[33m35188f7[m HEAD@{11}: pull origin master --rebase (finish): returning to refs/heads/master
+[33m35188f7[m HEAD@{12}: pull origin master --rebase (pick): setting&loginAdmin
+[33mceab40f[m HEAD@{13}: pull origin master --rebase (start): checkout ceab40f00072abc8807277874e987aee3ae37d92
+[33m607c015[m HEAD@{14}: commit: setting&loginAdmin
+[33m559828f[m HEAD@{15}: commit: update myOrders
+[33m6118196[m HEAD@{16}: commit: update orders
+[33m20bdf86[m HEAD@{17}: commit: update
+[33m8a760c9[m HEAD@{18}: commit: change-images
+[33ma3b6b00[m HEAD@{19}: commit: update addproduct
+[33m643cdac[m HEAD@{20}: commit: update offerpages
+[33mbc9d619[m HEAD@{21}: commit: dashboard pages
+[33m743f32a[m HEAD@{22}: commit: update api login
+[33m4391015[m HEAD@{23}: commit: update
+[33m0f0745e[m HEAD@{24}: commit: edit link
+[33m15a9308[m HEAD@{25}: commit: edit
+[33me4ecdb2[m HEAD@{26}: commit (initial): vitrine

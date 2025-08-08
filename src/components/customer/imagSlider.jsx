@@ -38,8 +38,8 @@ const slides = [
     title: "قسط مع فرصة",
     text: (
       <>
-        <span className="text-yellow-400">  اثني عشر شهر</span>
-        <span className="text-blue-950">  تقسيط</span>
+        <span className="text-yellow-400"> 15%</span>
+        <span className="text-blue-950">  مقدم</span>
         <br />
         <span className="text-yellow-400">0%</span>
         <span className="text-blue-950"> فوائد</span>
@@ -53,8 +53,8 @@ const slides = [
     title: "قسط مع موجو",
     text: (
       <>
-        <span className="text-yellow-400">ستة</span>
-        <span className="text-blue-950"> اشهر تقسيط</span>
+        <span className="text-yellow-400">20%</span>
+        <span className="text-blue-950"> مقدم</span>
         <br />
         <span className="text-yellow-400">0%</span>
         <span className="text-blue-950"> فوائد</span>
@@ -68,8 +68,8 @@ const slides = [
     title: "قسط مع امان",
     text: (
       <>
-        <span className="text-yellow-400">اثني عشر</span>
-        <span className="text-blue-950"> شهر تقسيط</span>
+        <span className="text-yellow-400">18%</span>
+        <span className="text-blue-950"> مقدم</span>
         <br />
         <span className="text-yellow-400">0%</span>
         <span className="text-blue-950"> فوائد</span>

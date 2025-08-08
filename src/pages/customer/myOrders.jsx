@@ -15,7 +15,7 @@ export default function MyOrders() {
           "https://e-commece-vitrine-api.vercel.app/api/user/orders",
           {
             headers: { Authorization: `Bearer ${token}` },
-            withCredentials:true
+  
           }
         );
         setMyOrders(res.data);

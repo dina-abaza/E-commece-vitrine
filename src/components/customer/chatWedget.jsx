@@ -4,21 +4,22 @@ import axios from "axios";
 import { FaEnvelope } from "react-icons/fa";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import AdminUseAuthStore from "../../store/adminStore/adminAuthStore";
+import useAuthStore from "../../store/customerStore/authStore";
 
 export default function AdminMessagesWidget() {
   const [messages, setMessages] = useState([]);
   const [open, setOpen] = useState(false);
   const [hasNew, setHasNew] = useState(false);
 
-  const user = AdminUseAuthStore((state) => state.user);
+  const user = useAuthStore((state) => state.user);
+  const token= useAuthStore((state)=>state.token)
 
   useEffect(() => {
     async function fetchMessages() {
       try {
         const headers = {};
-        if (user?.accesstoken) {
-          headers.Authorization = `Bearer ${user.accesstoken}`;
+        if (token) {
+          headers.Authorization = `Bearer ${token}`;
         }
         const res = await axios.get(
           "https://e-commece-vitrine-api.vercel.app/api/Get_messages",
@@ -37,19 +38,8 @@ export default function AdminMessagesWidget() {
     }
 
     fetchMessages();
-  }, [user]);
+  }, [user,token]);
 
-  const handleOpen = () => {
-    if (!user) {
-      toast.info("سجل دخول أولًا لتتلقى رسائل الإدارة", {
-        position: "top-right",
-        autoClose: 3000,
-      });
-      return;
-    }
-    setOpen(true);
-    setHasNew(true);
-  };
 
   const handleDeleteMessage = async (id, isPublic) => {
   if (isPublic) {
@@ -62,8 +52,8 @@ export default function AdminMessagesWidget() {
   } else {
     try {
       const headers = {};
-      if (user?.token) {
-        headers.Authorization = `Bearer ${user.token}`;
+      if (token) {
+        headers.Authorization = `Bearer ${token}`;
       }
 
       await axios.delete(
@@ -86,6 +76,10 @@ export default function AdminMessagesWidget() {
   }
 };
 
+function handleOpen(){
+  setOpen(true);
+  setHasNew(true);
+}
 
   return (
     <>
@@ -118,7 +112,7 @@ export default function AdminMessagesWidget() {
             </div>
 
             {messages.map((msg) =>
-              msg.forAll || msg.forUser?._id === user._id ? (
+              msg.forAll || msg.forUser=== user._id ? (
                 <div
                   key={msg._id}
                   className="bg-blue-50 border border-blue-200 rounded p-3 mb-3 relative"
