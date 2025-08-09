@@ -89,13 +89,7 @@ export default function Payment() {
   if (cartItems.length === 0) {
     return (
       <div className="p-6 text-center">
-        <p>لا يوجد منتجات للدفع.</p>
-        <button
-          onClick={() => navigate("/cart")}
-          className="text-blue-500 underline mt-4"
-        >
-          العودة للسلة
-        </button>
+        <p className="text-2xl font-bold">قم بمتابعة طلبك  من الان</p>
       </div>
     );
   }
