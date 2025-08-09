@@ -16,9 +16,10 @@ const AdminLogin = () => {
     setError("");
 
     try {
-      await axios.post("https://e-commece-vitrine-api.vercel.app/api/login", { email, password }, {
+     const res= await axios.post("https://e-commece-vitrine-api.vercel.app/api/login", { email, password }, {
         withCredentials: true 
       });
+      console.log(res.data)
       navigate("/admin/products");
     } catch (err) {
       console.error(err);

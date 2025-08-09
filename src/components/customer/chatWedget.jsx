@@ -96,7 +96,7 @@ function handleOpen(){
           </button>
         )}
 
-        {open && user && (
+        {open && (
           <div className="bg-white w-80 max-h-96 overflow-y-auto p-4 rounded-lg shadow-xl relative text-right">
             <div className="flex justify-between items-center mb-3">
               <h4 className="text-lg font-bold text-blue-700">
