@@ -10,7 +10,7 @@ function Home() {
       <ImageSlider />
       <CategoriesGrid />
 
-  <div className="flex flex-col gap-y-20">
+  <div className="flex flex-col gap-y-20 overflow-x-hidden">
   <OfferCard
     image="/kanapa.jpg"
     title="قطع تبدأ من 500"

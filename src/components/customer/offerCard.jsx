@@ -24,7 +24,7 @@ export default function OfferCard({ image, title, link, direction = "right" }) {
       variants={variants}
       initial="hidden"
       animate={inView ? "visible" : "hidden"}
-      className="relative w-full max-w-6xl m-auto h-[600px] shadow-lg"
+      className="relative w-full max-w-6xl m-auto h-[600px] shadow-lg overflow-hidden"
     >
       <img src={image} alt={title} className="w-full h-full object-cover" />
       <div className="absolute top-1/2 right-10 transform -translate-y-1/2 text-right">
