@@ -28,14 +28,16 @@ import AdminProducts from './pages/admin/adminProducts';
 import OffersPage from './pages/customer/offersPage';
 import Sendmessages from './pages/admin/sendMessage';
 import MyOrders from './pages/customer/myOrders';
+import ScrollToTop from './pages/customer/scrollToTop';
 
 function App() {
   return (
     <div className="flex flex-col min-h-screen">
        <ToastContainer position="top-right" autoClose={3000} />
-
+       <ScrollToTop />
       <Routes>
-
+        
+     
   
         <Route path="/" element={<CustomerLayout />}>
           <Route index element={<Home />} />
