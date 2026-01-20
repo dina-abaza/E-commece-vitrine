@@ -15,7 +15,7 @@ export default function Cart() {
 
   return (
     <div className="animate-slideInFromLeft max-w-5xl mx-auto p-6 m-10">
-      <h2 className="text-2xl font-bold mb-6">Your products</h2>
+      <h2 className="text-2xl font-bold mb-6 text-right">منتجاتك</h2>
 
       {cartItems.length === 0 ? (
         <p>no products</p>
@@ -40,17 +40,17 @@ export default function Cart() {
               
               <div className="flex flex-col sm:flex-row items-center sm:space-x-2 space-y-1 sm:space-y-0 mt-3 sm:mt-0">
 
-                <div className="flex items-center space-x-2 sm:space-x-3">
+                <div className="flex items-center gap-1 ">
                   <button
                     onClick={() => decreaseItem(item._id)}
-                    className="bg-gray-200 px-2 py-1 text-sm rounded hover:bg-gray-300 transition"
+                   
                   >
                     -
                   </button>
                   <span className="text-base">{item.quantity}</span>
                   <button
                     onClick={() => increaseItem(item._id)}
-                    className="bg-gray-200 px-2 py-1 text-sm rounded hover:bg-gray-300 transition"
+                   
                   >
                     +
                   </button>
@@ -70,7 +70,7 @@ export default function Cart() {
             السعر الكلي: {totalPrice} جنيه
           </div>
 
-          <Link to="/payment" className="text-cyan-600 hover:font-semibold">
+          <Link to="/payment" className="text-yellow-600 hover:font-semibold">
             اشتري الان
           </Link>
         </>

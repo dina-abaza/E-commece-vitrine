@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import useCartStore from "../../store/customerStore/cartStore";
-import { useParams } from "react-router-dom";
+import useAuthStore from "../../store/customerStore/authStore";
+import { useParams, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -10,6 +11,8 @@ export default function ProductByCategory() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
+  const user = useAuthStore(state => state.user);
   const addToCart = useCartStore(state => state.addToCart);
 
   useEffect(() => {
@@ -72,10 +75,14 @@ export default function ProductByCategory() {
     <p className="text-gray-700 font-bold mb-3">{product.price} جنيه</p>
     <button
       onClick={() => {
-          toast.success("✅ تم إضافة المنتج إلى السلة");
+        if (!user) {
+          toast.info("يرجى تسجيل الدخول أولاً لإضافة المنتجات إلى السلة");
+          navigate("/login");
+          return;
+        }
+        toast.success("✅ تم إضافة المنتج إلى السلة");
         console.log("Adding product to cart:", product);
         addToCart(product);
-
       }}
       className="text-yellow-700 font-bold hover:text-yellow-500 transition duration-300"
     >

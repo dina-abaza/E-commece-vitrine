@@ -11,7 +11,7 @@ import useCartStore from "../../store/customerStore/cartStore";
 export default function SearchNav() {
   const user = useAuthStore((state) => state.user);
   const logout = useAuthStore((state) => state.logout);
-   const cartItems = useCartStore((state) => state.cartItems);
+  const cartItems = useCartStore((state) => state.cartItems);
   const totalItems = cartItems?.length
   ? cartItems.reduce((acc, item) => acc + item.quantity, 0)
   : 0;

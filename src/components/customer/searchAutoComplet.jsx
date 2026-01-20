@@ -66,7 +66,7 @@ export default function SimpleSearchAutocomplete() {
 
   return (
     <div className="relative w-full max-w-md">
-      <div className="flex items-center border border-gray-300 rounded-md py-2 px-3 w-full bg-white">
+      <div className="flex items-center border border-gray-300 rounded-2xl py-2 px-3 w-full bg-white">
         <FiSearch className="text-gray-500 text-xl mr-2" />
         <input
           type="text"

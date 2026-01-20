@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
@@ -22,7 +21,6 @@ export default function Register() {
       const register = await axios.post("https://e-commece-vitrine-api.vercel.app/api/register", form);
 
       if (register.data.message === "تم إنشاء الحساب بنجاح") {
-
         setToken(register.data.accessToken);
         setUser(register.data.user);
         navigate("/");
@@ -34,50 +32,62 @@ export default function Register() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="animate-slideInFromLeft flex flex-col gap-4 mx-auto m-10
-        w-full max-w-md p-2 sm:w-1/2">
-      <h2 className="text-2xl font-bold text-center">إنشاء حساب</h2>
+    <div className="min-h-[80vh] flex items-center justify-center px-4">
+      <form 
+        onSubmit={handleSubmit} 
+        className="animate-slideInFromLeft flex flex-col gap-6 mx-auto w-full max-w-md p-8 bg-white rounded-[2rem] border border-gray-100 shadow-[0_20px_50px_rgba(0,0,0,0.05)]"
+      >
+        <div className="text-center space-y-2 mb-4">
+          <h2 className="text-3xl font-black text-gray-900">إنشاء حساب</h2>
+          <p className="text-gray-500 text-sm">أهلاً بك! يرجى إدخال بياناتك للبدء</p>
+        </div>
 
-      <input
-        type="text"
-        name="name"
-        placeholder="الاسم"
-        value={form.name}
-        onChange={handleChange}
-        required
-        className="p-2 border rounded"
-      />
+        <div className="space-y-4">
+          <input
+            type="text"
+            name="name"
+            placeholder="الاسم الكامل"
+            value={form.name}
+            onChange={handleChange}
+            required
+            className="w-full p-4 bg-gray-50 border border-gray-200 rounded-2xl focus:outline-none focus:border-yellow-500 focus:bg-white transition-all"
+          />
 
-      <input
-        type="email"
-        name="email"
-        placeholder="الإيميل"
-        value={form.email}
-        onChange={handleChange}
-        required
-        className="p-2 border rounded"
-      />
+          <input
+            type="email"
+            name="email"
+            placeholder="البريد الإلكتروني"
+            value={form.email}
+            onChange={handleChange}
+            required
+            className="w-full p-4 bg-gray-50 border border-gray-200 rounded-2xl focus:outline-none focus:border-yellow-500 focus:bg-white transition-all"
+          />
 
-      <input
-        type="password"
-        name="password"
-        placeholder="كلمة السر"
-        value={form.password}
-        onChange={handleChange}
-        required
-        className="p-2 border rounded"
-      />
+          <input
+            type="password"
+            name="password"
+            placeholder="كلمة السر"
+            value={form.password}
+            onChange={handleChange}
+            required
+            className="w-full p-4 bg-gray-50 border border-gray-200 rounded-2xl focus:outline-none focus:border-yellow-500 focus:bg-white transition-all"
+          />
+        </div>
 
-      <button type="submit" className="bg-yellow-600 text-black p-2 font-bold rounded">
-        إنشاء الحساب
-      </button>
+        <button 
+          type="submit" 
+          className="bg-yellow-500 hover:bg-yellow-600 text-black py-4 font-black rounded-2xl shadow-lg shadow-yellow-200 transition-all transform active:scale-95 mt-2"
+        >
+          إنشاء الحساب
+        </button>
 
-      <p className="text-center text-sm">
-        عندك حساب؟{" "}
-        <Link to="/login" className="text-blue-600 underline">
-          سجل الدخول
-        </Link>
-      </p>
-    </form>
+        <p className="text-center text-gray-600 font-medium">
+          عندك حساب؟{" "}
+          <Link to="/login" className="text-yellow-600 hover:text-yellow-700 font-bold underline underline-offset-4">
+            سجل الدخول
+          </Link>
+        </p>
+      </form>
+    </div>
   );
 }

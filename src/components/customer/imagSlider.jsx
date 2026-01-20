@@ -1,164 +1,84 @@
 import React, { useEffect, useState } from "react";
-import { FaTruck } from "react-icons/fa";
+import { FaTruck, FaChevronRight, FaChevronLeft } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const slides = [
-  {
-    image: "/kanapa2.jpg",
-    title: "قسط علي 6 شهور",
-    text: (
-      <>
-        <span className="text-yellow-400">0%</span>
-        <span className="text-blue-950"> مقدم</span>
-        <br />
-        <span className="text-yellow-400">0%</span>
-        <span className="text-blue-950"> فوائد</span>
-      </>
-    ),
-    service: "توصيل مجاني",
-    button: "تسوق الان",
-  },
-  {
-    image: "/master-1-1.jpg",
-    title: "قسط علي 12 شهر",
-    text: (
-      <>
-        <span className="text-yellow-400">25%</span>
-        <span className="text-blue-950"> مقدم</span>
-        <br />
-        <span className="text-yellow-400">0%</span>
-        <span className="text-blue-950"> فوائد</span>
-      </>
-    ),
-    service: "توصيل مجاني",
-    button: "تسوق الان",
-  },
-  {
-    image: "/sofa4-2.jpg",
-    title: "قسط مع فرصة",
-    text: (
-      <>
-        <span className="text-yellow-400"> 15%</span>
-        <span className="text-blue-950">  مقدم</span>
-        <br />
-        <span className="text-yellow-400">0%</span>
-        <span className="text-blue-950"> فوائد</span>
-      </>
-    ),
-    service: "توصيل مجاني",
-    button: "تسوق الان",
-  },
-  {
-    image: "/salon.jpg",
-    title: "قسط مع موجو",
-    text: (
-      <>
-        <span className="text-yellow-400">20%</span>
-        <span className="text-blue-950"> مقدم</span>
-        <br />
-        <span className="text-yellow-400">0%</span>
-        <span className="text-blue-950"> فوائد</span>
-      </>
-    ),
-    service: "توصيل مجاني",
-    button: "تسوق الان",
-  },
-  {
-    image: "/salon2.jpg",
-    title: "قسط مع امان",
-    text: (
-      <>
-        <span className="text-yellow-400">18%</span>
-        <span className="text-blue-950"> مقدم</span>
-        <br />
-        <span className="text-yellow-400">0%</span>
-        <span className="text-blue-950"> فوائد</span>
-      </>
-    ),
-    service: "توصيل مجاني",
-    button: "تسوق الان",
-  },
+  { image: "/kanapa2.jpg", title: "قسط علي 6 شهور", text: (<><span className="text-yellow-400">0</span><span className="text-yellow-400">%</span><span className="text-white"> مقدم</span><br /><span className="text-yellow-400">0</span><span className="text-yellow-400">%</span><span className="text-white"> فوائد</span></>), service: "توصيل مجاني", button: "تسوق الان" },
+  { image: "/master-1-1.jpg", title: "قسط علي 12 شهر", text: (<><span className="text-yellow-400">25</span><span className="text-yellow-400">%</span><span className="text-white"> مقدم</span><br /><span className="text-yellow-400">0</span><span className="text-yellow-400">%</span><span className="text-white"> فوائد</span></>), service: "توصيل مجاني", button: "تسوق الان" },
+  { image: "/sofa4-2.jpg", title: "قسط مع فرصة", text: (<><span className="text-yellow-400">15</span><span className="text-yellow-400">%</span><span className="text-white"> مقدم</span><br /><span className="text-yellow-400">0</span><span className="text-yellow-400">%</span><span className="text-white"> فوائد</span></>), service: "توصيل مجاني", button: "تسوق الان" },
+  { image: "/salon.jpg", title: "قسط مع موجو", text: (<><span className="text-yellow-400">20</span><span className="text-yellow-400">%</span><span className="text-white"> مقدم</span><br /><span className="text-yellow-400">0</span><span className="text-yellow-400">%</span><span className="text-white"> فوائد</span></>), service: "توصيل مجاني", button: "تسوق الان" },
+  { image: "/salon2.jpg", title: "قسط مع امان", text: (<><span className="text-yellow-400">18</span><span className="text-yellow-400">%</span><span className="text-white"> مقدم</span><br /><span className="text-yellow-400">0</span><span className="text-yellow-400">%</span><span className="text-white"> فوائد</span></>), service: "توصيل مجاني", button: "تسوق الان" },
 ];
 
 const ImageSlider = () => {
   const [current, setCurrent] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
-  const [animate, setAnimate] = useState(true);
 
-  const nextSlide = () => {
-    setAnimate(false);
-    setTimeout(() => {
-      setCurrent((prev) => (prev + 1) % slides.length);
-      setAnimate(true);
-    }, 150);
-  };
-
-  const prevSlide = () => {
-    setAnimate(false);
-    setTimeout(() => {
-      setCurrent((prev) => (prev - 1 + slides.length) % slides.length);
-      setAnimate(true);
-    }, 150);
-  };
+  const nextSlide = () => setCurrent((prev) => (prev + 1) % slides.length);
+  const prevSlide = () => setCurrent((prev) => (prev - 1 + slides.length) % slides.length);
 
   useEffect(() => {
     if (isPaused) return;
-    const timer = setInterval(() => {
-      nextSlide();
-    }, 4000);
+    const timer = setInterval(nextSlide, 5000);
     return () => clearInterval(timer);
-  }, [isPaused]);
+  }, [isPaused, current]);
 
   return (
     <div
-      className="relative w-full max-w-6xl mx-auto py-10 overflow-hidden shadow-xl rounded-lg"
+      className="relative w-full max-w-6xl mx-auto md:py-10 overflow-hidden shadow-xl md:rounded-lg group h-[350px] md:h-[600px]"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
-      style={{ height: "600px" }}
     >
-      <img
-        src={slides[current].image}
-        alt={slides[current].title}
-        className={`w-full h-full object-cover transition-opacity duration-900 ${
-          animate ? "opacity-100" : "opacity-0"
-        }`}
-      />
-
-  
-      <div
-        className="absolute right-5 md:right-20 top-1/3 md:top-1/2 flex flex-col items-end gap-4 text-sm md:text-2xl text-blue-950 font-bold"
-      >
-        <h2 className="text-lg md:text-4xl">{slides[current].title}</h2>
-
-        <p className="text-base md:text-3xl">{slides[current].text}</p>
-
-        <div className="flex items-center gap-2 text-base md:text-3xl justify-end">
-          <p>{slides[current].service}</p>
-          <FaTruck className="text-yellow-400 w-6 h-6 md:w-8 md:h-8" />
-        </div>
-
-        <Link
-          to="/allProducts"
-          className="bg-yellow-400 text-blue-900 px-4 py-1 md:px-6 md:py-2 rounded shadow hover:bg-amber-500 transition text-xs md:text-sm"
+      {/* عرض الصور */}
+      {slides.map((slide, index) => (
+        <div
+          key={index}
+          className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out ${
+            index === current ? "opacity-100 z-10" : "opacity-0 z-0"
+          }`}
         >
-          {slides[current].button}
-        </Link>
-      </div>
+          <img
+            src={slide.image}
+            alt={slide.title}
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-black/40 pointer-events-none"></div>
+          
+          {/* المحتوى النصي */}
+          <div className={`absolute left-0 right-0 px-8 md:px-20 top-1/2 -translate-y-1/2 flex flex-col items-end gap-2 md:gap-4 text-white font-bold transition-all duration-1000 delay-300 transform ${
+            index === current ? "opacity-100 translate-x-0" : "opacity-0 translate-x-10"
+          }`}>
+            <h2 className="text-xl md:text-5xl text-right leading-tight">{slide.title}</h2>
+            <div className="text-lg md:text-4xl text-right leading-tight">{slide.text}</div>
+            <div className="flex items-center gap-2 text-sm md:text-3xl">
+              <p>{slide.service}</p>
+              <FaTruck className="text-yellow-400 w-5 h-5 md:w-10 md:h-10" />
+            </div>
+            <Link
+              to="/allProducts"
+              className="bg-yellow-400 text-blue-900 px-4 py-1.5 md:px-8 md:py-3 rounded-full shadow-lg hover:bg-amber-500 transition-all font-extrabold text-xs md:text-xl mt-2 md:mt-4"
+            >
+              {slide.button}
+            </Link>
+          </div>
+        </div>
+      ))}
 
-      
+      {/* الأسهم - تم تعديلها لتكون أبعد ما يمكن في الموبايل */}
       <button
         onClick={prevSlide}
-        className="absolute top-1/2 left-4 -translate-y-1/2 text-3xl text-white hover:text-yellow-400 transition"
-        aria-label="السابق"
+        className="absolute left-1 md:left-4 top-1/2 -translate-y-1/2 bg-black/10 md:bg-white/20 hover:bg-yellow-400 hover:text-blue-900 text-white p-2 md:p-3 rounded-full transition-all z-30"
+        aria-label="Previous slide"
       >
-        ❮
+        <FaChevronLeft className="w-4 h-4 md:w-6 md:h-6" />
       </button>
+
       <button
         onClick={nextSlide}
-        className="absolute top-1/2 right-4 -translate-y-1/2 text-3xl text-white hover:text-yellow-400 transition"
-        aria-label="التالي"
+        className="absolute right-1 md:right-4 top-1/2 -translate-y-1/2 bg-black/10 md:bg-white/20 hover:bg-yellow-400 hover:text-blue-900 text-white p-2 md:p-3 rounded-full transition-all z-30"
+        aria-label="Next slide"
       >
-        ❯
+        <FaChevronRight className="w-4 h-4 md:w-6 md:h-6" />
       </button>
     </div>
   );

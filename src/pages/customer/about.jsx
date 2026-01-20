@@ -5,7 +5,7 @@ const About = () => {
     <div dir="rtl" className="bg-white text-gray-800 px-6 py-12 max-w-5xl mx-auto">
       <h1 className="text-3xl font-bold text-center mb-6">من نحن - Vitrine</h1>
       <p className="mb-4 leading-loose text-right">
-        مرحبًا بك في <span className="font-semibold">Vitrine</span>، حيث يتحول منزلك إلى مساحة تنبض بالأناقة والراحة.
+        مرحبًا بك في <span className="font-semibold text-yellow-500">Vitrine</span>، حيث يتحول منزلك إلى مساحة تنبض بالأناقة والراحة.
         نحن متجر إلكتروني متخصص في <strong>بيع الأثاث وكل ما يتعلق بديكور وتجهيز المنزل</strong>.
         نؤمن أن المنزل ليس مجرد مكان، بل هو انعكاس لذوقك، أسلوبك، وراحتك النفسية.
       </p>

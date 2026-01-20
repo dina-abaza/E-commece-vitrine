@@ -1,14 +1,18 @@
 
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useCartStore from "../../store/customerStore/cartStore";
+import useAuthStore from "../../store/customerStore/authStore";
 import { toast } from "react-toastify";
 
 export default function AllProducts() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
+  
+  const user = useAuthStore(state => state.user);
   const addToCart = useCartStore(state => state.addToCart);
 
   useEffect(() => {
@@ -73,15 +77,20 @@ export default function AllProducts() {
               <h3 className="text-lg font-semibold mb-1">{product.name}</h3>
               <p className="text-gray-700 font-bold mb-3">{product.price} جنيه</p>
               <button
-                onClick={() => {
-                  console.log("Adding product to cart:", product);
-                  toast.success("✅ تم إضافة المنتج إلى السلة");
-                  addToCart(product);
-                }}
-                className="text-yellow-700 font-bold hover:text-yellow-500 transition duration-300"
-              >
-                أضف إلى السلة
-              </button>
+          onClick={() => {
+            if (!user) {
+              toast.info("يرجى تسجيل الدخول أولاً لإضافة المنتجات إلى السلة");
+              navigate("/login");
+              return;
+            }
+            console.log("Adding product to cart:", product);
+            toast.success("✅ تم إضافة المنتج إلى السلة");
+            addToCart(product);
+          }}
+          className="text-yellow-700 font-bold hover:text-yellow-500 transition duration-300"
+        >
+          أضف إلى السلة
+        </button>
             </div>
 
           </div>

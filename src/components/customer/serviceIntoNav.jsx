@@ -3,7 +3,7 @@ import { FaTruck, FaArrowCircleLeft, FaBox } from 'react-icons/fa';
 
 export default function ServiceIntoNav() {
   return (
-    <div className="w-full flex justify-center gap-20 md:gap-40 items-center h-20 ">
+    <div className="w-full flex justify-center gap-10 md:gap-20 items-center h-20 ">
 
       
       <div className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 text-center sm:text-left text-xs sm:text-base">

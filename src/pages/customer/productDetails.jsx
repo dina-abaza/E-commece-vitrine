@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import useCartStore from "../../store/customerStore/cartStore";
+import useAuthStore from "../../store/customerStore/authStore";
 import { toast } from "react-toastify";
 
 export default function ProductDetails() {
@@ -11,7 +12,9 @@ export default function ProductDetails() {
   const [quantity, setQuantity] = useState(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
+  const user = useAuthStore(state => state.user);
   const addToCart = useCartStore(state => state.addToCart);
 
   useEffect(() => {
@@ -38,6 +41,11 @@ export default function ProductDetails() {
   const decrease = () => setQuantity(prev => (prev > 1 ? prev - 1 : 1));
 
   const handleAddToCart = () => {
+    if (!user) {
+      toast.info("يرجى تسجيل الدخول أولاً لإضافة المنتجات إلى السلة");
+      navigate("/login");
+      return;
+    }
     if (!color) {
       toast.info("من فضلك اختر اللون أولاً");
       return;
@@ -48,8 +56,7 @@ export default function ProductDetails() {
       quantity,
     });
     toast.success("✅ تم إضافة المنتج إلى السلة");
-    
-  };
+    };
 
   if (loading) return <p>جاري التحميل...</p>;
   if (error) return <p className="text-red-600">{error}</p>;
@@ -57,7 +64,7 @@ export default function ProductDetails() {
 
   return (
     <div className="animate-slideInFromLeft p-6 max-w-md mx-auto">
-      <h2 className="text-2xl font-bold mb-2">{product.name}</h2>
+      <h2 className="text-2xl font-bold mb-4 text-right">{product.name}</h2>
       <img
         src={product.image || "https://via.placeholder.com/400"}
         alt={product.name}
@@ -65,7 +72,7 @@ export default function ProductDetails() {
       />
       <p className="my-4">{product.description}</p>
       <p className="font-semibold mb-4">السعر: {product.price} جنيه</p>
-      <span className="text-sm text-white bg-red-500 p-1 rounded">{product.offer.discountPercent}%</span>
+      <span className="text-sm text-white bg-red-500 p-1 rounded-lg">{product.offer.discountPercent}%</span>
       <p className="font-bold mt-2 mb-4">{product.offer.discountedPrice} جنيه</p>
 
       <label htmlFor="colorSelect" className="block mb-2 font-semibold">
@@ -83,17 +90,17 @@ export default function ProductDetails() {
         <option value="gray">رمادي</option>
       </select>
 
-      <div className="flex items-center gap-4 mb-6">
+      <div className="flex items-center gap-1 mb-6">
         <button
           onClick={decrease}
-          className="bg-gray-300 px-3 py-1 rounded hover:bg-gray-400"
+          
         >
           -
         </button>
         <span className="text-lg font-semibold">{quantity}</span>
         <button
           onClick={increase}
-          className="bg-gray-300 px-3 py-1 rounded hover:bg-gray-400"
+          
         >
           +
         </button>
@@ -101,7 +108,7 @@ export default function ProductDetails() {
 
       <button
         onClick={handleAddToCart}
-        className="text-cyan-600 hover:underline font-semibold"
+        className="text-yellow-600 hover:underline font-semibold"
       >
         أضف إلى السلة
       </button>
