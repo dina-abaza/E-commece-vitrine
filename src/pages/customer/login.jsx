@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import useAuthStore from "../../store/customerStore/authStore";
+import useCartStore from "../../store/customerStore/cartStore";
 
 export default function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
   const navigate = useNavigate();
   const setUser = useAuthStore((state) => state.setUser);
   const setToken = useAuthStore((state) => state.setToken);
+  const loadUserCart = useCartStore((state) => state.loadUserCart);
 
   function handleChange(e) {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -22,6 +24,7 @@ export default function Login() {
       if (response.data.accessToken) {
         setToken(response.data.accessToken);
         setUser(response.data.user);
+        loadUserCart(response.data.user._id);
         navigate("/");
       } else {
         alert("بيانات الدخول غير صحيحة");

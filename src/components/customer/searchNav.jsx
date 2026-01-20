@@ -12,6 +12,8 @@ export default function SearchNav() {
   const user = useAuthStore((state) => state.user);
   const logout = useAuthStore((state) => state.logout);
   const cartItems = useCartStore((state) => state.cartItems);
+  const clearCart = useCartStore((state) => state.clearCart);
+  const setCurrentUserId = useCartStore((state) => state.setCurrentUserId);
   const totalItems = cartItems?.length
   ? cartItems.reduce((acc, item) => acc + item.quantity, 0)
   : 0;
@@ -19,7 +21,9 @@ export default function SearchNav() {
   const navigate = useNavigate();
 
   function handleLogout() {
-    logout();      
+    logout();
+    clearCart();
+    setCurrentUserId(null);      
     navigate("/login");  
   }
 

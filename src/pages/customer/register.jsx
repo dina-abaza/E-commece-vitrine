@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import useAuthStore from "../../store/customerStore/authStore";
+import useCartStore from "../../store/customerStore/cartStore";
 
 export default function Register() {
   const [form, setForm] = useState({ name: "", email: "", password: "" });
@@ -9,6 +10,7 @@ export default function Register() {
 
   const setUser = useAuthStore((state) => state.setUser);
   const setToken = useAuthStore((state) => state.setToken);
+  const clearCart = useCartStore((state) => state.clearCart);
 
   function handleChange(e) {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -21,6 +23,7 @@ export default function Register() {
       const register = await axios.post("https://e-commece-vitrine-api.vercel.app/api/register", form);
 
       if (register.data.message === "تم إنشاء الحساب بنجاح") {
+        clearCart();
         setToken(register.data.accessToken);
         setUser(register.data.user);
         navigate("/");
