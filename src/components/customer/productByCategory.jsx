@@ -16,7 +16,7 @@ export default function ProductByCategory() {
   const addToCart = useCartStore(state => state.addToCart);
 
   useEffect(() => {
-    const storedData = localStorage.getItem(products);
+    const storedData = localStorage.getItem("products");
     if (storedData) {
       setProducts(JSON.parse(storedData));
       setLoading(false); 
@@ -26,7 +26,7 @@ export default function ProductByCategory() {
       try {
         const url = `https://e-commece-vitrine-api.vercel.app/api/product/${id}`;
         const res = await axios.get(url);
-        localStorage.setItem(products, JSON.stringify(res.data));
+        localStorage.setItem("products", JSON.stringify(res.data));
         setProducts(res.data);
       } catch (error) {
         setError(error.message);
